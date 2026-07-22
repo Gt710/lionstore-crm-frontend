@@ -427,6 +427,75 @@ val LibraryAddIcon: ImageVector by lazy {
     }.build()
 }
 
+// User requested exact icon: save (var=opsz,wght,FILL,GRAD,ROND@24,400,0,0,50)
+val SaveIcon: ImageVector by lazy {
+    ImageVector.Builder(name = "Save", defaultWidth = 24.dp, defaultHeight = 24.dp, viewportWidth = 24f, viewportHeight = 24f).apply {
+        path(fill = SolidColor(Color.Black)) {
+            moveTo(17f, 3f)
+            lineTo(21f, 7f)
+            verticalLineTo(19f)
+            curveTo(21f, 20.1f, 20.1f, 21f, 19f, 21f)
+            horizontalLineTo(5f)
+            curveTo(3.89f, 21f, 3f, 20.1f, 3f, 19f)
+            verticalLineTo(5f)
+            curveTo(3f, 3.89f, 3.89f, 3f, 5f, 3f)
+            horizontalLineTo(17f)
+            close()
+            moveTo(17f, 5f)
+            horizontalLineTo(5f)
+            verticalLineTo(19f)
+            horizontalLineTo(19f)
+            verticalLineTo(7f)
+            lineTo(17f, 5f)
+            close()
+            moveTo(12f, 18f)
+            curveTo(13.66f, 18f, 15f, 16.66f, 15f, 15f)
+            curveTo(15f, 13.34f, 13.66f, 12f, 12f, 12f)
+            curveTo(10.34f, 12f, 9f, 13.34f, 9f, 15f)
+            curveTo(9f, 16.66f, 10.34f, 18f, 12f, 18f)
+            close()
+            moveTo(6f, 6f)
+            horizontalLineTo(15f)
+            verticalLineTo(10f)
+            horizontalLineTo(6f)
+            verticalLineTo(6f)
+            close()
+        }
+    }.build()
+}
+
+// User requested exact icon: delete (var=opsz,wght,FILL,GRAD,ROND@24,400,0,0,50)
+val DeleteOutlinedIcon: ImageVector by lazy {
+    ImageVector.Builder(name = "DeleteOutlined", defaultWidth = 24.dp, defaultHeight = 24.dp, viewportWidth = 24f, viewportHeight = 24f).apply {
+        path(fill = SolidColor(Color.Black)) {
+            moveTo(16f, 9f)
+            verticalLineTo(19f)
+            horizontalLineTo(8f)
+            verticalLineTo(9f)
+            horizontalLineTo(16f)
+            close()
+            moveTo(14.5f, 3f)
+            horizontalLineTo(9.5f)
+            lineTo(8.5f, 4f)
+            horizontalLineTo(5f)
+            verticalLineTo(6f)
+            horizontalLineTo(19f)
+            verticalLineTo(4f)
+            horizontalLineTo(15.5f)
+            lineTo(14.5f, 3f)
+            close()
+            moveTo(18f, 7f)
+            horizontalLineTo(6f)
+            verticalLineTo(19f)
+            curveTo(6f, 20.1f, 6.9f, 21f, 8f, 21f)
+            horizontalLineTo(16f)
+            curveTo(17.1f, 21f, 18f, 20.1f, 18f, 19f)
+            verticalLineTo(7f)
+            close()
+        }
+    }.build()
+}
+
 @Composable
 @Preview
 fun App() {
@@ -1956,23 +2025,31 @@ fun EditTicketScreen(
                         Icon(imageVector = ArrowBackIcon, contentDescription = "Назад", tint = Color(0xFF181511))
                     }
                     Spacer(modifier = Modifier.width(12.dp))
-                    Text(
-                        text = "Редагувати талон ${ticket.id}",
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color(0xFF181511)
-                    )
+                    Column {
+                        Text(
+                            text = "Редагувати талон",
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.Medium,
+                            color = Color(0xFF6B7280)
+                        )
+                        Text(
+                            text = ticket.id,
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color(0xFF181511)
+                        )
+                    }
                 }
 
                 Box(
                     modifier = Modifier
                         .size(36.dp)
                         .clip(CircleShape)
-                        .background(Color(0xFFFEE2E2))
+                        .background(Color(0xFFF3F4F6))
                         .clickable { onDeleteTicket(ticket.id) },
                     contentAlignment = Alignment.Center
                 ) {
-                    Icon(imageVector = DeleteIcon, contentDescription = "Видалити", tint = Color(0xFFDC2626), modifier = Modifier.size(18.dp))
+                    Icon(imageVector = DeleteOutlinedIcon, contentDescription = "Видалити", tint = Color(0xFF181511), modifier = Modifier.size(20.dp))
                 }
             }
 
@@ -2007,7 +2084,7 @@ fun EditTicketScreen(
                                     .padding(horizontal = 14.dp, vertical = 8.dp)
                             ) {
                                 Text(
-                                    text = if (isSelected) "🔄  $st" else st,
+                                    text = st,
                                     fontSize = 14.sp,
                                     fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium,
                                     color = if (isSelected) getStatusTextColor(st) else Color(0xFF4B5563)
@@ -2143,12 +2220,24 @@ fun EditTicketScreen(
                     },
                 contentAlignment = Alignment.Center
             ) {
-                Text(
-                    text = "💾  Зберегти зміни",
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color(0xFF181511)
-                )
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Icon(
+                        imageVector = SaveIcon,
+                        contentDescription = null,
+                        tint = Color(0xFF181511),
+                        modifier = Modifier.size(20.dp)
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(
+                        text = "Зберегти зміни",
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color(0xFF181511)
+                    )
+                }
             }
         }
     }
