@@ -45,8 +45,6 @@ sealed class Screen {
     object NewTicket : Screen()
     data class TicketDetails(val ticketId: String) : Screen()
     data class EditTicket(val ticketId: String) : Screen()
-    object UserRegistration : Screen()
-    object AccountPending : Screen()
 }
 
 // Data models
@@ -498,184 +496,6 @@ val DeleteOutlinedIcon: ImageVector by lazy {
     }.build()
 }
 
-// User requested exact icon: login (var=opsz,wght,FILL,GRAD,ROND@24,400,0,0,50)
-val LoginIcon: ImageVector by lazy {
-    ImageVector.Builder(name = "Login", defaultWidth = 24.dp, defaultHeight = 24.dp, viewportWidth = 24f, viewportHeight = 24f).apply {
-        path(fill = SolidColor(Color.Black)) {
-            moveTo(11f, 7f)
-            lineTo(9.6f, 8.4f)
-            lineTo(12.2f, 11f)
-            horizontalLineTo(3f)
-            verticalLineTo(13f)
-            horizontalLineTo(12.2f)
-            lineTo(9.6f, 15.6f)
-            lineTo(11f, 17f)
-            lineTo(16f, 12f)
-            lineTo(11f, 7f)
-            close()
-            moveTo(19f, 3f)
-            horizontalLineTo(5f)
-            curveTo(3.9f, 3f, 3f, 3.9f, 3f, 5f)
-            verticalLineTo(9f)
-            horizontalLineTo(5f)
-            verticalLineTo(5f)
-            horizontalLineTo(19f)
-            verticalLineTo(19f)
-            horizontalLineTo(5f)
-            verticalLineTo(15f)
-            horizontalLineTo(3f)
-            verticalLineTo(19f)
-            curveTo(3f, 20.1f, 3.9f, 21f, 5f, 21f)
-            horizontalLineTo(19f)
-            curveTo(20.1f, 21f, 21f, 20.1f, 21f, 19f)
-            verticalLineTo(5f)
-            curveTo(21f, 3.9f, 20.1f, 3f, 19f, 3f)
-            close()
-        }
-    }.build()
-}
-
-// User requested exact icon: pets (var=opsz,wght,FILL,GRAD,ROND@24,400,0,0,50)
-val PetsIcon: ImageVector by lazy {
-    ImageVector.Builder(name = "Pets", defaultWidth = 24.dp, defaultHeight = 24.dp, viewportWidth = 24f, viewportHeight = 24f).apply {
-        path(fill = SolidColor(Color.Black)) {
-            moveTo(4.5f, 11f)
-            curveTo(5.88f, 11f, 7f, 9.88f, 7f, 8.5f)
-            curveTo(7f, 7.12f, 5.88f, 6f, 4.5f, 6f)
-            curveTo(3.12f, 6f, 2f, 7.12f, 2f, 8.5f)
-            curveTo(2f, 9.88f, 3.12f, 11f, 4.5f, 11f)
-            close()
-            moveTo(8.5f, 7.5f)
-            curveTo(9.88f, 7.5f, 11f, 6.38f, 11f, 5f)
-            curveTo(11f, 3.62f, 9.88f, 2.5f, 8.5f, 2.5f)
-            curveTo(7.12f, 2.5f, 6f, 3.62f, 6f, 5f)
-            curveTo(6f, 6.38f, 7.12f, 7.5f, 8.5f, 7.5f)
-            close()
-            moveTo(15.5f, 7.5f)
-            curveTo(16.88f, 7.5f, 18f, 6.38f, 18f, 5f)
-            curveTo(18f, 3.62f, 16.88f, 2.5f, 15.5f, 2.5f)
-            curveTo(14.12f, 2.5f, 13f, 3.62f, 13f, 5f)
-            curveTo(13f, 6.38f, 14.12f, 7.5f, 15.5f, 7.5f)
-            close()
-            moveTo(19.5f, 11f)
-            curveTo(20.88f, 11f, 22f, 9.88f, 22f, 8.5f)
-            curveTo(22f, 7.12f, 20.88f, 6f, 19.5f, 6f)
-            curveTo(18.12f, 6f, 17f, 7.12f, 17f, 8.5f)
-            curveTo(17f, 9.88f, 18.12f, 11f, 19.5f, 11f)
-            close()
-            moveTo(17.34f, 14.86f)
-            curveTo(16.48f, 13.72f, 14.93f, 13f, 12f, 13f)
-            curveTo(9.07f, 13f, 7.52f, 13.72f, 6.66f, 14.86f)
-            curveTo(5.61f, 16.24f, 5.75f, 18.11f, 7.08f, 19.26f)
-            curveTo(8.42f, 20.41f, 10.33f, 21.5f, 12f, 21.5f)
-            curveTo(13.67f, 21.5f, 15.58f, 20.41f, 16.92f, 19.26f)
-            curveTo(18.25f, 18.11f, 18.39f, 16.24f, 17.34f, 14.86f)
-            close()
-        }
-    }.build()
-}
-
-val PersonIcon: ImageVector by lazy {
-    ImageVector.Builder(name = "Person", defaultWidth = 24.dp, defaultHeight = 24.dp, viewportWidth = 24f, viewportHeight = 24f).apply {
-        path(fill = SolidColor(Color.Black)) {
-            moveTo(12f, 12f)
-            curveTo(14.21f, 12f, 16f, 10.21f, 16f, 8f)
-            curveTo(16f, 5.79f, 14.21f, 4f, 12f, 4f)
-            curveTo(9.79f, 4f, 8f, 5.79f, 8f, 8f)
-            curveTo(8f, 10.21f, 9.79f, 12f, 12f, 12f)
-            close()
-            moveTo(12f, 14f)
-            curveTo(9.33f, 14f, 4f, 15.34f, 4f, 18f)
-            verticalLineTo(20f)
-            horizontalLineTo(20f)
-            verticalLineTo(18f)
-            curveTo(20f, 15.34f, 14.67f, 14f, 12f, 14f)
-            close()
-        }
-    }.build()
-}
-
-val BadgeIcon: ImageVector by lazy {
-    ImageVector.Builder(name = "Badge", defaultWidth = 24.dp, defaultHeight = 24.dp, viewportWidth = 24f, viewportHeight = 24f).apply {
-        path(fill = SolidColor(Color.Black)) {
-            moveTo(20f, 7f)
-            horizontalLineTo(14f)
-            verticalLineTo(4f)
-            curveTo(14f, 2.9f, 13.1f, 2f, 12f, 2f)
-            curveTo(10.9f, 2f, 10f, 2.9f, 10f, 4f)
-            verticalLineTo(7f)
-            horizontalLineTo(4f)
-            curveTo(2.9f, 7f, 2f, 7.9f, 2f, 9f)
-            verticalLineTo(19f)
-            curveTo(2f, 20.1f, 2.9f, 21f, 4f, 21f)
-            horizontalLineTo(20f)
-            curveTo(21.1f, 21f, 22f, 20.1f, 22f, 19f)
-            verticalLineTo(9f)
-            curveTo(22f, 7.9f, 21.1f, 7f, 20f, 7f)
-            close()
-            moveTo(12f, 4f)
-            curveTo(12.55f, 4f, 13f, 4.45f, 13f, 5f)
-            verticalLineTo(7f)
-            horizontalLineTo(11f)
-            verticalLineTo(5f)
-            curveTo(11f, 4.45f, 11.45f, 4f, 12f, 4f)
-            close()
-            moveTo(20f, 19f)
-            horizontalLineTo(4f)
-            verticalLineTo(9f)
-            horizontalLineTo(20f)
-            verticalLineTo(19f)
-            close()
-            moveTo(9f, 12f)
-            curveTo(9f, 13.1f, 9.9f, 14f, 11f, 14f)
-            curveTo(12.1f, 14f, 13f, 13.1f, 13f, 12f)
-            curveTo(13f, 10.9f, 12.1f, 10f, 11f, 10f)
-            curveTo(9.9f, 10f, 9f, 10.9f, 9f, 12f)
-            close()
-            moveTo(15f, 16.5f)
-            curveTo(15f, 15.17f, 12.33f, 14.5f, 11f, 14.5f)
-            curveTo(9.67f, 14.5f, 7f, 15.17f, 7f, 16.5f)
-            verticalLineTo(17f)
-            horizontalLineTo(15f)
-            verticalLineTo(16.5f)
-            close()
-        }
-    }.build()
-}
-
-val HourglassTopIcon: ImageVector by lazy {
-    ImageVector.Builder(name = "HourglassTop", defaultWidth = 24.dp, defaultHeight = 24.dp, viewportWidth = 24f, viewportHeight = 24f).apply {
-        path(fill = SolidColor(Color.Black)) {
-            moveTo(6f, 2f)
-            verticalLineTo(8f)
-            lineTo(10f, 12f)
-            lineTo(6f, 16f)
-            verticalLineTo(22f)
-            horizontalLineTo(18f)
-            verticalLineTo(16f)
-            lineTo(14f, 12f)
-            lineTo(18f, 8f)
-            verticalLineTo(2f)
-            horizontalLineTo(6f)
-            close()
-            moveTo(16f, 16.5f)
-            verticalLineTo(20f)
-            horizontalLineTo(8f)
-            verticalLineTo(16.5f)
-            lineTo(12f, 12.5f)
-            lineTo(16f, 16.5f)
-            close()
-            moveTo(12f, 11.5f)
-            lineTo(8f, 7.5f)
-            verticalLineTo(4f)
-            horizontalLineTo(16f)
-            verticalLineTo(7.5f)
-            lineTo(12f, 11.5f)
-            close()
-        }
-    }.build()
-}
-
 @Composable
 @Preview
 fun App() {
@@ -832,8 +652,7 @@ fun App() {
                             onTicketClick = { ticketId ->
                                 activeTicketId = ticketId
                                 currentScreen = Screen.TicketDetails(ticketId)
-                            },
-                            onRegistrationClick = { currentScreen = Screen.UserRegistration }
+                            }
                         )
                     }
                     is Screen.Search -> {
@@ -879,21 +698,6 @@ fun App() {
                             },
                             onDeleteTicket = { ticketId ->
                                 tickets.removeAll { it.id == ticketId }
-                                currentScreen = Screen.Dashboard
-                            }
-                        )
-                    }
-                    is Screen.UserRegistration -> {
-                        UserRegistrationScreen(
-                            onCloseClick = handleBack,
-                            onContinueClick = { firstName, lastName, phone ->
-                                currentScreen = Screen.AccountPending
-                            }
-                        )
-                    }
-                    is Screen.AccountPending -> {
-                        AccountPendingScreen(
-                            onCheckStatusClick = {
                                 currentScreen = Screen.Dashboard
                             }
                         )
@@ -959,8 +763,7 @@ fun DashboardScreen(
     tickets: List<RepairTicket>,
     onNewTicketClick: () -> Unit,
     onSearchClick: () -> Unit,
-    onTicketClick: (String) -> Unit,
-    onRegistrationClick: () -> Unit = {}
+    onTicketClick: (String) -> Unit
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
         Column(
@@ -970,12 +773,10 @@ fun DashboardScreen(
                 .padding(bottom = 24.dp)
         ) {
             // Header with Camera Notch Offset (top padding = 28.dp)
-            Row(
+            Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 28.dp, start = 20.dp, end = 20.dp, bottom = 24.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+                    .padding(top = 28.dp, start = 20.dp, end = 20.dp, bottom = 24.dp)
             ) {
                 Text(
                     text = "Сервіс Ремонту",
@@ -984,22 +785,6 @@ fun DashboardScreen(
                     color = Color(0xFF181511),
                     lineHeight = 38.sp
                 )
-
-                // Quick auth / registration link button
-                Box(
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(20.dp))
-                        .background(Color.White)
-                        .border(1.dp, Color(0xFFE5E7EB), RoundedCornerShape(20.dp))
-                        .clickable { onRegistrationClick() }
-                        .padding(horizontal = 12.dp, vertical = 6.dp)
-                ) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(imageVector = PetsIcon, contentDescription = null, tint = Color(0xFFF9A20B), modifier = Modifier.size(16.dp))
-                        Spacer(modifier = Modifier.width(4.dp))
-                        Text("Реєстрація", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = Color(0xFF374151))
-                    }
-                }
             }
 
             // Action Cards
@@ -1233,6 +1018,7 @@ fun NewTicketScreen(
                         color = Color(0xFF181511)
                     )
                 }
+                Text(text = "🐾", fontSize = 20.sp)
             }
 
             Column(modifier = Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(20.dp)) {
@@ -2784,376 +2570,4 @@ fun Divider(color: Color) {
             .height(1.dp)
             .background(color)
     )
-}
-
-// ----------------------------------------------------
-// 7. USER REGISTRATION SCREEN (Давайте познайомимось)
-// ----------------------------------------------------
-@Composable
-fun UserRegistrationScreen(
-    onCloseClick: () -> Unit,
-    onContinueClick: (firstName: String, lastName: String, phone: String) -> Unit
-) {
-    var firstName by remember { mutableStateOf("") }
-    var lastName by remember { mutableStateOf("") }
-    var phone by remember { mutableStateOf("") }
-
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color(0xFFF8F7F5))
-    ) {
-        // Decorative Watermark Background (Paw print icon)
-        Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ) {
-            Icon(
-                imageVector = PetsIcon,
-                contentDescription = null,
-                tint = Color(0xFFF9A20B).copy(alpha = 0.05f),
-                modifier = Modifier.size(320.dp)
-            )
-        }
-
-        Column(modifier = Modifier.fillMaxSize()) {
-            // Header Bar with Centered Logo (Matching user screenshot — no close button)
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 28.dp, bottom = 16.dp, start = 20.dp, end = 20.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center
-            ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(
-                        imageVector = PetsIcon,
-                        contentDescription = "LionStore Logo",
-                        tint = Color(0xFFF9A20B),
-                        modifier = Modifier.size(28.dp)
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(
-                        text = "LionStore",
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color(0xFF181511)
-                    )
-                }
-            }
-
-            // Main Content Area
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f)
-                    .verticalScroll(rememberScrollState())
-                    .padding(horizontal = 24.dp, vertical = 20.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Spacer(modifier = Modifier.height(16.dp))
-
-                Text(
-                    text = "Давайте познайомимось",
-                    fontSize = 28.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color(0xFF181511),
-                    textAlign = TextAlign.Center
-                )
-                Spacer(modifier = Modifier.height(10.dp))
-                Text(
-                    text = "Введіть свої дані, щоб розпочати роботу з LionStore.",
-                    fontSize = 15.sp,
-                    color = Color(0xFF6B7280),
-                    textAlign = TextAlign.Center,
-                    lineHeight = 22.sp
-                )
-
-                Spacer(modifier = Modifier.height(32.dp))
-
-                // Form Container
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalArrangement = Arrangement.spacedBy(20.dp)
-                ) {
-                    // First Name Field
-                    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                        Text(
-                            text = "Ім'я",
-                            fontSize = 14.sp,
-                            fontWeight = FontWeight.SemiBold,
-                            color = Color(0xFF374151)
-                        )
-                        FormTextField(
-                            value = firstName,
-                            onValueChange = { firstName = it },
-                            placeholder = "Введіть ваше ім'я",
-                            leadingIcon = {
-                                Icon(
-                                    imageVector = PersonIcon,
-                                    contentDescription = null,
-                                    tint = Color(0xFF9CA3AF),
-                                    modifier = Modifier.size(20.dp)
-                                )
-                            }
-                        )
-                    }
-
-                    // Last Name Field
-                    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                        Text(
-                            text = "Прізвище",
-                            fontSize = 14.sp,
-                            fontWeight = FontWeight.SemiBold,
-                            color = Color(0xFF374151)
-                        )
-                        FormTextField(
-                            value = lastName,
-                            onValueChange = { lastName = it },
-                            placeholder = "Введіть ваше прізвище",
-                            leadingIcon = {
-                                Icon(
-                                    imageVector = BadgeIcon,
-                                    contentDescription = null,
-                                    tint = Color(0xFF9CA3AF),
-                                    modifier = Modifier.size(20.dp)
-                                )
-                            }
-                        )
-                    }
-
-                    // Phone Number Field (With +38 formatting prefix)
-                    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                        Text(
-                            text = "Номер телефону",
-                            fontSize = 14.sp,
-                            fontWeight = FontWeight.SemiBold,
-                            color = Color(0xFF374151)
-                        )
-                        FormTextField(
-                            value = phone,
-                            onValueChange = { phone = it },
-                            placeholder = "(099) 000-00-00",
-                            leadingText = "+38",
-                            leadingIcon = {
-                                Icon(
-                                    imageVector = PhoneCallIcon,
-                                    contentDescription = null,
-                                    tint = Color(0xFF9CA3AF),
-                                    modifier = Modifier.size(20.dp)
-                                )
-                            }
-                        )
-                    }
-                }
-            }
-
-            // Sticky Footer CTA with LoginIcon
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .shadow(16.dp)
-                    .background(Color(0xFFF8F7F5).copy(alpha = 0.95f))
-                    .padding(horizontal = 24.dp, vertical = 16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(54.dp)
-                        .clip(RoundedCornerShape(14.dp))
-                        .background(Color(0xFFF9A20B))
-                        .clickable { onContinueClick(firstName, lastName, phone) },
-                    contentAlignment = Alignment.Center
-                ) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.Center
-                    ) {
-                        Text(
-                            text = "Продовжити",
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = Color(0xFF181511)
-                        )
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Icon(
-                            imageVector = LoginIcon,
-                            contentDescription = null,
-                            tint = Color(0xFF181511),
-                            modifier = Modifier.size(20.dp)
-                        )
-                    }
-                }
-            }
-        }
-    }
-}
-
-// ----------------------------------------------------
-// 8. ACCOUNT PENDING SCREEN (Очікує підтвердження)
-// ----------------------------------------------------
-@Composable
-fun AccountPendingScreen(
-    onCheckStatusClick: () -> Unit
-) {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color(0xFFF8F7F7))
-    ) {
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            // Header Bar with Pill Logo
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 28.dp, bottom = 16.dp),
-                horizontalArrangement = Arrangement.Center
-            ) {
-                Box(
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(24.dp))
-                        .background(Color.White)
-                        .border(1.dp, Color(0xFFE5E7EB), RoundedCornerShape(24.dp))
-                        .padding(horizontal = 16.dp, vertical = 8.dp)
-                ) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(
-                            imageVector = PetsIcon,
-                            contentDescription = "LionStore Logo",
-                            tint = Color(0xFFF5A10F),
-                            modifier = Modifier.size(24.dp)
-                        )
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text(
-                            text = "LionStore",
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = Color(0xFF181511)
-                        )
-                    }
-                }
-            }
-
-            // Main Content Area with Centered Card
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f)
-                    .padding(horizontal = 24.dp),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .shadow(elevation = 4.dp, shape = RoundedCornerShape(28.dp))
-                        .clip(RoundedCornerShape(28.dp))
-                        .background(Color.White)
-                        .border(1.dp, Color(0xFFF3F4F6), RoundedCornerShape(28.dp))
-                        .padding(32.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(20.dp)
-                ) {
-                    // Glowing Icon Container with top-right orange dot
-                    Box(contentAlignment = Alignment.Center) {
-                        Box(
-                            modifier = Modifier
-                                .size(88.dp)
-                                .clip(CircleShape)
-                                .background(Color(0xFFFEF3C7))
-                                .border(1.dp, Color(0xFFFDE68A), CircleShape),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Icon(
-                                imageVector = HourglassTopIcon,
-                                contentDescription = "Hourglass",
-                                tint = Color(0xFFF5A10F),
-                                modifier = Modifier.size(44.dp)
-                            )
-                        }
-                        // Top Right Accent Dot
-                        Box(
-                            modifier = Modifier
-                                .size(12.dp)
-                                .align(Alignment.TopEnd)
-                                .clip(CircleShape)
-                                .background(Color(0xFFF5A10F))
-                                .border(2.dp, Color.White, CircleShape)
-                        )
-                    }
-
-                    // Text Content in Ukrainian
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.spacedBy(10.dp)
-                    ) {
-                        Text(
-                            text = "Очікує підтвердження",
-                            fontSize = 24.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = Color(0xFF181511),
-                            textAlign = TextAlign.Center
-                        )
-                        Text(
-                            text = "Ласкаво просимо до LionStore! Ваш обліковий запис наразі розглядається. Будь ласка, зачекайте, поки адміністратор надасть вам доступ.",
-                            fontSize = 14.sp,
-                            color = Color(0xFF6B7280),
-                            textAlign = TextAlign.Center,
-                            lineHeight = 22.sp
-                        )
-                    }
-
-                    // Status Badge Pill with НА РОЗГЛЯДІ
-                    Row(
-                        modifier = Modifier
-                            .clip(RoundedCornerShape(12.dp))
-                            .background(Color(0xFFF3F4F6))
-                            .padding(horizontal = 14.dp, vertical = 8.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
-                        Box(
-                            modifier = Modifier
-                                .size(8.dp)
-                                .clip(CircleShape)
-                                .background(Color(0xFFFB923C))
-                        )
-                        Text(
-                            text = "НА РОЗГЛЯДІ",
-                            fontSize = 12.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = Color(0xFF6B7280),
-                            letterSpacing = 1.sp
-                        )
-                    }
-                }
-
-                Spacer(modifier = Modifier.height(24.dp))
-
-                // Action to enter CRM / check status
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(50.dp)
-                        .clip(RoundedCornerShape(14.dp))
-                        .background(Color.White)
-                        .border(1.dp, Color(0xFFE5E7EB), RoundedCornerShape(14.dp))
-                        .clickable { onCheckStatusClick() },
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = "До Головної (Демо доступу)",
-                        fontSize = 14.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color(0xFF374151)
-                    )
-                }
-            }
-        }
-    }
 }
