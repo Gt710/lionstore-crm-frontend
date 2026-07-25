@@ -41,6 +41,8 @@ import kotlinx.coroutines.delay
 // Navigation screens
 sealed class Screen {
     object Dashboard : Screen()
+    object Orders : Screen()
+    object Settings : Screen()
     object Search : Screen()
     object NewTicket : Screen()
     data class TicketDetails(val ticketId: String) : Screen()
@@ -516,17 +518,313 @@ val HomeIcon: ImageVector by lazy {
     }.build()
 }
 
+// User requested exact icon: handyman
+val HandymanIcon: ImageVector by lazy {
+    ImageVector.Builder(name = "Handyman", defaultWidth = 24.dp, defaultHeight = 24.dp, viewportWidth = 24f, viewportHeight = 24f).apply {
+        path(fill = SolidColor(Color.Black)) {
+            moveTo(21.67f, 18.17f)
+            lineTo(14.9f, 11.4f)
+            curveTo(15.6f, 9.8f, 15.3f, 7.9f, 14f, 6.6f)
+            curveTo(12.6f, 5.2f, 10.5f, 4.9f, 8.8f, 5.7f)
+            lineTo(11.6f, 8.5f)
+            lineTo(9.5f, 10.6f)
+            lineTo(6.7f, 7.8f)
+            curveTo(5.9f, 9.5f, 6.2f, 11.6f, 7.6f, 13f)
+            curveTo(8.9f, 14.3f, 10.8f, 14.6f, 12.4f, 13.9f)
+            lineTo(19.17f, 20.67f)
+            curveTo(19.56f, 21.06f, 20.19f, 21.06f, 20.58f, 20.67f)
+            lineTo(21.67f, 19.58f)
+            curveTo(22.06f, 19.19f, 22.06f, 18.56f, 21.67f, 18.17f)
+            close()
+            moveTo(13.67f, 3.83f)
+            lineTo(10.5f, 7f)
+            lineTo(13f, 9.5f)
+            lineTo(16.17f, 6.33f)
+            curveTo(16.56f, 5.94f, 16.56f, 5.31f, 16.17f, 4.92f)
+            lineTo(15.08f, 3.83f)
+            curveTo(14.69f, 3.44f, 14.06f, 3.44f, 13.67f, 3.83f)
+            close()
+        }
+    }.build()
+}
+
+// User requested exact icon: orders
+val OrdersIcon: ImageVector by lazy {
+    ImageVector.Builder(name = "Orders", defaultWidth = 24.dp, defaultHeight = 24.dp, viewportWidth = 24f, viewportHeight = 24f).apply {
+        path(fill = SolidColor(Color.Black)) {
+            moveTo(19f, 3f)
+            horizontalLineTo(5f)
+            curveTo(3.9f, 3f, 3f, 3.9f, 3f, 5f)
+            verticalLineTo(19f)
+            curveTo(3f, 20.1f, 3.9f, 21f, 5f, 21f)
+            horizontalLineTo(19f)
+            curveTo(20.1f, 21f, 21f, 20.1f, 21f, 19f)
+            verticalLineTo(5f)
+            curveTo(21f, 3.9f, 20.1f, 3f, 19f, 3f)
+            close()
+            moveTo(19f, 19f)
+            horizontalLineTo(5f)
+            verticalLineTo(8f)
+            horizontalLineTo(19f)
+            verticalLineTo(19f)
+            close()
+            moveTo(7f, 10f)
+            horizontalLineTo(17f)
+            verticalLineTo(12f)
+            horizontalLineTo(7f)
+            verticalLineTo(10f)
+            close()
+            moveTo(7f, 14f)
+            horizontalLineTo(14f)
+            verticalLineTo(16f)
+            horizontalLineTo(7f)
+            verticalLineTo(14f)
+            close()
+        }
+    }.build()
+}
+
+// User requested exact icon: settings
+val SettingsIcon: ImageVector by lazy {
+    ImageVector.Builder(name = "Settings", defaultWidth = 24.dp, defaultHeight = 24.dp, viewportWidth = 24f, viewportHeight = 24f).apply {
+        path(fill = SolidColor(Color.Black)) {
+            moveTo(19.14f, 12.94f)
+            curveTo(19.18f, 12.63f, 19.2f, 12.32f, 19.2f, 12f)
+            curveTo(19.2f, 11.68f, 19.18f, 11.37f, 19.14f, 11.06f)
+            lineTo(21.16f, 9.48f)
+            curveTo(21.34f, 9.34f, 21.39f, 9.08f, 21.28f, 8.87f)
+            lineTo(19.37f, 5.56f)
+            curveTo(19.25f, 5.35f, 19f, 5.27f, 18.78f, 5.35f)
+            lineTo(16.4f, 6.31f)
+            curveTo(15.91f, 5.93f, 15.37f, 5.62f, 14.8f, 5.38f)
+            lineTo(14.44f, 2.85f)
+            curveTo(14.41f, 2.62f, 14.21f, 2.45f, 13.98f, 2.45f)
+            horizontalLineTo(10.15f)
+            curveTo(9.92f, 2.45f, 9.72f, 2.62f, 9.69f, 2.85f)
+            lineTo(9.33f, 5.38f)
+            curveTo(8.76f, 5.62f, 8.22f, 5.94f, 7.73f, 6.31f)
+            lineTo(5.35f, 5.35f)
+            curveTo(5.13f, 5.26f, 4.88f, 5.35f, 4.76f, 5.56f)
+            lineTo(2.85f, 8.87f)
+            curveTo(2.73f, 9.08f, 2.79f, 9.34f, 2.97f, 9.48f)
+            lineTo(4.99f, 11.06f)
+            curveTo(4.95f, 11.37f, 4.93f, 11.69f, 4.93f, 12f)
+            curveTo(4.93f, 12.31f, 4.95f, 12.63f, 4.99f, 12.94f)
+            lineTo(2.97f, 14.52f)
+            curveTo(2.79f, 14.66f, 2.73f, 14.92f, 2.85f, 15.13f)
+            lineTo(4.76f, 18.44f)
+            curveTo(4.88f, 18.65f, 5.13f, 18.74f, 5.35f, 18.65f)
+            lineTo(7.73f, 17.69f)
+            curveTo(8.22f, 18.07f, 8.76f, 18.38f, 9.33f, 18.62f)
+            lineTo(9.69f, 21.15f)
+            curveTo(9.72f, 21.38f, 9.92f, 21.55f, 10.15f, 21.55f)
+            horizontalLineTo(13.98f)
+            curveTo(14.21f, 21.55f, 14.41f, 21.38f, 14.44f, 21.15f)
+            lineTo(14.8f, 18.62f)
+            curveTo(15.37f, 18.38f, 15.91f, 18.06f, 16.4f, 17.69f)
+            lineTo(18.78f, 18.65f)
+            curveTo(19f, 18.74f, 19.25f, 18.65f, 19.37f, 18.44f)
+            lineTo(21.28f, 15.13f)
+            curveTo(21.4f, 14.92f, 21.34f, 14.66f, 21.16f, 14.52f)
+            lineTo(19.14f, 12.94f)
+            close()
+            moveTo(12f, 15.5f)
+            curveTo(10.07f, 15.5f, 8.5f, 13.93f, 8.5f, 12f)
+            curveTo(8.5f, 10.07f, 10.07f, 8.5f, 12f, 8.5f)
+            curveTo(13.93f, 8.5f, 15.5f, 10.07f, 15.5f, 12f)
+            curveTo(15.5f, 13.93f, 13.93f, 15.5f, 12f, 15.5f)
+            close()
+        }
+    }.build()
+}
+
+val PendingActionsIcon: ImageVector by lazy {
+    ImageVector.Builder(name = "PendingActions", defaultWidth = 24.dp, defaultHeight = 24.dp, viewportWidth = 24f, viewportHeight = 24f).apply {
+        path(fill = SolidColor(Color.Black)) {
+            moveTo(17f, 12f)
+            curveTo(14.24f, 12f, 12f, 14.24f, 12f, 17f)
+            curveTo(12f, 19.76f, 14.24f, 22f, 17f, 22f)
+            curveTo(19.76f, 22f, 22f, 19.76f, 22f, 17f)
+            curveTo(22f, 14.24f, 19.76f, 12f, 17f, 12f)
+            close()
+            moveTo(18.65f, 19.35f)
+            lineTo(16.5f, 17.2f)
+            verticalLineTo(14f)
+            horizontalLineTo(17.5f)
+            verticalLineTo(16.8f)
+            lineTo(19.35f, 18.65f)
+            lineTo(18.65f, 19.35f)
+            close()
+            moveTo(19f, 3f)
+            horizontalLineTo(14.82f)
+            curveTo(14.4f, 1.84f, 13.3f, 1f, 12f, 1f)
+            curveTo(10.7f, 1f, 9.6f, 1.84f, 9.18f, 3f)
+            horizontalLineTo(5f)
+            curveTo(3.9f, 3f, 3f, 3.9f, 3f, 5f)
+            verticalLineTo(19f)
+            curveTo(3f, 20.1f, 3.9f, 21f, 5f, 21f)
+            horizontalLineTo(10.35f)
+            curveTo(10.13f, 20.38f, 10f, 19.7f, 10f, 19f)
+            horizontalLineTo(5f)
+            verticalLineTo(5f)
+            horizontalLineTo(7f)
+            verticalLineTo(7f)
+            horizontalLineTo(17f)
+            verticalLineTo(5f)
+            horizontalLineTo(19f)
+            verticalLineTo(10.35f)
+            curveTo(19.7f, 10.35f, 20.38f, 10.48f, 21f, 10.7f)
+            verticalLineTo(5f)
+            curveTo(21f, 3.9f, 20.1f, 3f, 19f, 3f)
+            close()
+            moveTo(12f, 3f)
+            curveTo(12.55f, 3f, 13f, 3.45f, 13f, 4f)
+            curveTo(13f, 4.55f, 12.55f, 5f, 12f, 5f)
+            curveTo(11.45f, 5f, 11f, 4.55f, 11f, 4f)
+            curveTo(11f, 3.45f, 11.45f, 3f, 12f, 3f)
+            close()
+        }
+    }.build()
+}
+
+val CheckCircleIcon: ImageVector by lazy {
+    ImageVector.Builder(name = "CheckCircle", defaultWidth = 24.dp, defaultHeight = 24.dp, viewportWidth = 24f, viewportHeight = 24f).apply {
+        path(fill = SolidColor(Color.Black)) {
+            moveTo(12f, 2f)
+            curveTo(6.48f, 2f, 2f, 6.48f, 2f, 12f)
+            curveTo(2f, 17.52f, 6.48f, 22f, 12f, 22f)
+            curveTo(17.52f, 22f, 22f, 17.52f, 22f, 12f)
+            curveTo(22f, 6.48f, 17.52f, 2f, 12f, 2f)
+            close()
+            moveTo(10f, 16.5f)
+            lineTo(5.5f, 12f)
+            lineTo(6.91f, 10.59f)
+            lineTo(10f, 13.67f)
+            lineTo(17.09f, 6.58f)
+            lineTo(18.5f, 8f)
+            lineTo(10f, 16.5f)
+            close()
+        }
+    }.build()
+}
+
+val GroupIcon: ImageVector by lazy {
+    ImageVector.Builder(name = "Group", defaultWidth = 24.dp, defaultHeight = 24.dp, viewportWidth = 24f, viewportHeight = 24f).apply {
+        path(fill = SolidColor(Color.Black)) {
+            moveTo(16f, 11f)
+            curveTo(17.66f, 11f, 18.99f, 9.66f, 18.99f, 8f)
+            curveTo(18.99f, 6.34f, 17.66f, 5f, 16f, 5f)
+            curveTo(14.34f, 5f, 13f, 6.34f, 13f, 8f)
+            curveTo(13f, 9.66f, 14.34f, 11f, 16f, 11f)
+            close()
+            moveTo(8f, 11f)
+            curveTo(9.66f, 11f, 11f, 9.66f, 11f, 8f)
+            curveTo(11f, 6.34f, 9.66f, 5f, 8f, 5f)
+            curveTo(6.34f, 5f, 5f, 6.34f, 5f, 8f)
+            curveTo(5f, 9.66f, 6.34f, 11f, 8f, 11f)
+            close()
+            moveTo(8f, 13f)
+            curveTo(5.33f, 13f, 0f, 14.34f, 0f, 17f)
+            verticalLineTo(20f)
+            horizontalLineTo(16f)
+            verticalLineTo(17f)
+            curveTo(16f, 14.34f, 10.67f, 13f, 8f, 13f)
+            close()
+            moveTo(16f, 13f)
+            curveTo(15.71f, 13f, 15.38f, 13.02f, 15.03f, 13.05f)
+            curveTo(16.19f, 13.89f, 17f, 15.02f, 17f, 16.5f)
+            verticalLineTo(20f)
+            horizontalLineTo(24f)
+            verticalLineTo(17f)
+            curveTo(24f, 14.67f, 19.33f, 13.5f, 16.5f, 13f)
+            close()
+        }
+    }.build()
+}
+
+val SecurityIcon: ImageVector by lazy {
+    ImageVector.Builder(name = "Security", defaultWidth = 24.dp, defaultHeight = 24.dp, viewportWidth = 24f, viewportHeight = 24f).apply {
+        path(fill = SolidColor(Color.Black)) {
+            moveTo(12f, 1f)
+            lineTo(3f, 5f)
+            verticalLineTo(11f)
+            curveTo(3f, 16.55f, 6.84f, 21.74f, 12f, 23f)
+            curveTo(17.16f, 21.74f, 21f, 16.55f, 21f, 11f)
+            verticalLineTo(5f)
+            lineTo(12f, 1f)
+            close()
+        }
+    }.build()
+}
+
+val PaletteIcon: ImageVector by lazy {
+    ImageVector.Builder(name = "Palette", defaultWidth = 24.dp, defaultHeight = 24.dp, viewportWidth = 24f, viewportHeight = 24f).apply {
+        path(fill = SolidColor(Color.Black)) {
+            moveTo(12f, 3f)
+            curveTo(7.03f, 3f, 3f, 7.03f, 3f, 12f)
+            curveTo(3f, 16.97f, 7.03f, 21f, 12f, 21f)
+            curveTo(12.83f, 21f, 13.5f, 20.33f, 13.5f, 19.5f)
+            curveTo(13.5f, 19.11f, 13.35f, 18.76f, 13.11f, 18.49f)
+            curveTo(12.88f, 18.23f, 12.73f, 17.88f, 12.73f, 17.5f)
+            curveTo(12.73f, 16.67f, 13.4f, 16f, 14.23f, 16f)
+            horizontalLineTo(16f)
+            curveTo(18.76f, 16f, 21f, 13.76f, 21f, 11f)
+            curveTo(21f, 6.58f, 16.97f, 3f, 12f, 3f)
+            close()
+            moveTo(6.5f, 12f)
+            curveTo(5.67f, 12f, 5f, 11.33f, 5f, 10.5f)
+            curveTo(5f, 9.67f, 5.67f, 9f, 6.5f, 9f)
+            curveTo(7.33f, 9f, 8f, 9.67f, 8f, 10.5f)
+            curveTo(8f, 11.33f, 7.33f, 12f, 6.5f, 12f)
+            close()
+            moveTo(9.5f, 8f)
+            curveTo(8.67f, 8f, 8f, 7.33f, 8f, 6.5f)
+            curveTo(8f, 5.67f, 8.67f, 5f, 9.5f, 5f)
+            curveTo(10.33f, 5f, 11f, 5.67f, 11f, 6.5f)
+            curveTo(11f, 7.33f, 10.33f, 8f, 9.5f, 8f)
+            close()
+            moveTo(14.5f, 8f)
+            curveTo(13.67f, 8f, 13f, 7.33f, 13f, 6.5f)
+            curveTo(13f, 5.67f, 13.67f, 5f, 14.5f, 5f)
+            curveTo(15.33f, 5f, 16f, 5.67f, 16f, 6.5f)
+            curveTo(16f, 7.33f, 15.33f, 8f, 14.5f, 8f)
+            close()
+            moveTo(17.5f, 12f)
+            curveTo(16.67f, 12f, 16f, 11.33f, 16f, 10.5f)
+            curveTo(16f, 9.67f, 16.67f, 9f, 17.5f, 9f)
+            curveTo(18.33f, 9f, 19f, 9.67f, 19f, 10.5f)
+            curveTo(19f, 11.33f, 18.33f, 12f, 17.5f, 12f)
+            close()
+        }
+    }.build()
+}
+
+val ChevronRightIcon: ImageVector by lazy {
+    ImageVector.Builder(name = "ChevronRight", defaultWidth = 24.dp, defaultHeight = 24.dp, viewportWidth = 24f, viewportHeight = 24f).apply {
+        path(fill = SolidColor(Color.Black)) {
+            moveTo(10f, 6f)
+            lineTo(8.59f, 7.41f)
+            lineTo(13.17f, 12f)
+            lineTo(8.59f, 16.59f)
+            lineTo(10f, 18f)
+            lineTo(16f, 12f)
+            lineTo(10f, 6f)
+            close()
+        }
+    }.build()
+}
+
 // ----------------------------------------------------
-// BOTTOM NAVIGATION BAR COMPONENTS (Material 3 Style)
+// FLOATING PILL BOTTOM NAVIGATION BAR (Matching Photo)
 // ----------------------------------------------------
 sealed class BottomNavItem(
     val title: String,
     val icon: ImageVector,
     val screen: Screen
 ) {
-    object Home : BottomNavItem("Головна", HomeIcon, Screen.Dashboard)
-    object Search : BottomNavItem("Пошук", SearchIcon, Screen.Search)
-    object NewTicket : BottomNavItem("Створити", AddIcon, Screen.NewTicket)
+    object Repairs : BottomNavItem("Ремонт", HandymanIcon, Screen.Dashboard)
+    object Orders : BottomNavItem("Замовлення", OrdersIcon, Screen.Orders)
+    object Settings : BottomNavItem("Налаштування", SettingsIcon, Screen.Settings)
 }
 
 @Composable
@@ -535,18 +833,20 @@ fun AppBottomNavigationBar(
     onNavigate: (Screen) -> Unit
 ) {
     val items = listOf(
-        BottomNavItem.Home,
-        BottomNavItem.Search,
-        BottomNavItem.NewTicket
+        BottomNavItem.Repairs,
+        BottomNavItem.Orders,
+        BottomNavItem.Settings
     )
 
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .shadow(elevation = 16.dp)
+            .padding(bottom = 20.dp, start = 36.dp, end = 36.dp)
+            .shadow(elevation = 12.dp, shape = CircleShape)
+            .clip(CircleShape)
             .background(Color.White)
-            .border(width = 1.dp, color = Color(0xFFE5E7EB))
-            .padding(vertical = 8.dp, horizontal = 12.dp)
+            .border(width = 1.dp, color = Color(0xFFE6E2DB), shape = CircleShape)
+            .padding(horizontal = 16.dp, vertical = 10.dp)
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -556,38 +856,33 @@ fun AppBottomNavigationBar(
             items.forEach { item ->
                 val isSelected = when (currentScreen) {
                     is Screen.Dashboard -> item.screen is Screen.Dashboard
-                    is Screen.Search -> item.screen is Screen.Search
-                    is Screen.NewTicket -> item.screen is Screen.NewTicket
+                    is Screen.Orders -> item.screen is Screen.Orders
+                    is Screen.Settings -> item.screen is Screen.Settings
                     else -> false
                 }
 
-                Box(
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center,
                     modifier = Modifier
-                        .clip(RoundedCornerShape(20.dp))
-                        .background(if (isSelected) Color(0xFFFEF3C7) else Color.Transparent)
+                        .clip(CircleShape)
                         .clickable { onNavigate(item.screen) }
-                        .padding(horizontal = 20.dp, vertical = 8.dp),
-                    contentAlignment = Alignment.Center
+                        .padding(horizontal = 16.dp, vertical = 4.dp)
                 ) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.Center
-                    ) {
-                        Icon(
-                            imageVector = item.icon,
-                            contentDescription = item.title,
-                            tint = if (isSelected) Color(0xFFD97706) else Color(0xFF9CA3AF),
-                            modifier = Modifier.size(22.dp)
+                    Icon(
+                        imageVector = item.icon,
+                        contentDescription = item.title,
+                        tint = if (isSelected) Color(0xFF181511) else Color(0xFF9CA3AF),
+                        modifier = Modifier.size(24.dp)
+                    )
+                    if (isSelected) {
+                        Spacer(modifier = Modifier.height(2.dp))
+                        Text(
+                            text = item.title,
+                            fontSize = 11.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color(0xFF181511)
                         )
-                        if (isSelected) {
-                            Spacer(modifier = Modifier.width(6.dp))
-                            Text(
-                                text = item.title,
-                                fontSize = 13.sp,
-                                fontWeight = FontWeight.Bold,
-                                color = Color(0xFFD97706)
-                            )
-                        }
                     }
                 }
             }
@@ -754,6 +1049,12 @@ fun App() {
                             }
                         )
                     }
+                    is Screen.Orders -> {
+                        OrdersScreen(onBackClick = handleBack)
+                    }
+                    is Screen.Settings -> {
+                        SettingsScreen(tickets = tickets)
+                    }
                     is Screen.Search -> {
                         SearchTicketsScreen(
                             tickets = tickets,
@@ -804,8 +1105,8 @@ fun App() {
                 }
             }
 
-            // Bottom Navigation Bar (Visible on primary screens: Dashboard, Search, NewTicket)
-            if (currentScreen is Screen.Dashboard || currentScreen is Screen.Search || currentScreen is Screen.NewTicket) {
+            // Pill Floating Bottom Navigation Bar (Visible on primary screens)
+            if (currentScreen is Screen.Dashboard || currentScreen is Screen.Orders || currentScreen is Screen.Settings || currentScreen is Screen.Search || currentScreen is Screen.NewTicket) {
                 Box(
                     modifier = Modifier.align(Alignment.BottomCenter)
                 ) {
@@ -2683,4 +2984,426 @@ fun Divider(color: Color) {
             .height(1.dp)
             .background(color)
     )
+}
+
+// ----------------------------------------------------
+// 9. ORDERS SCREEN (Замовлення - Скоро буде)
+// ----------------------------------------------------
+@Composable
+fun OrdersScreen(
+    onBackClick: () -> Unit
+) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color(0xFFF8F7F5))
+    ) {
+        Column(modifier = Modifier.fillMaxSize()) {
+            // Header Bar
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Color.White)
+                    .border(width = 1.dp, color = Color(0xFFE6E2DB))
+                    .padding(top = 28.dp, bottom = 16.dp, start = 20.dp, end = 20.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "Замовлення",
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color(0xFF181511),
+                    letterSpacing = (-0.5).sp
+                )
+            }
+
+            // Central Placeholder Box
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f)
+                    .padding(horizontal = 24.dp, vertical = 32.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .shadow(elevation = 2.dp, shape = RoundedCornerShape(24.dp))
+                        .clip(RoundedCornerShape(24.dp))
+                        .background(Color.White)
+                        .border(1.dp, Color(0xFFE6E2DB), RoundedCornerShape(24.dp))
+                        .padding(32.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .size(80.dp)
+                            .clip(CircleShape)
+                            .background(Color(0xFFFEF3C7)),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            imageVector = OrdersIcon,
+                            contentDescription = null,
+                            tint = Color(0xFFF9A20B),
+                            modifier = Modifier.size(40.dp)
+                        )
+                    }
+
+                    Text(
+                        text = "Розділ замовлень",
+                        fontSize = 22.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color(0xFF181511)
+                    )
+
+                    Text(
+                        text = "Цей функціонал знаходиться у розробці та незабаром буде доступний!",
+                        fontSize = 14.sp,
+                        color = Color(0xFF6B5E4C),
+                        textAlign = TextAlign.Center,
+                        lineHeight = 20.sp
+                    )
+
+                    Row(
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(20.dp))
+                            .background(Color(0xFFFEF3C7))
+                            .padding(horizontal = 16.dp, vertical = 6.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = "СКОРО",
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.ExtraBold,
+                            color = Color(0xFFD97706),
+                            letterSpacing = 1.sp
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+// ----------------------------------------------------
+// 10. SETTINGS SCREEN (Профіль та Налаштування)
+// ----------------------------------------------------
+@Composable
+fun SettingsScreen(
+    tickets: List<RepairTicket>,
+    onManageTeamClick: () -> Unit = {}
+) {
+    val activeCount = tickets.count { it.status == "В роботі" || it.status == "На узгодженні" || it.status == "Очікує запчастин" }
+    val completedCount = tickets.count { it.status == "Готовий до видачі" || it.status == "Завершений" }
+
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color(0xFFF8F7F5))
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+                .padding(bottom = 100.dp)
+        ) {
+            // Header Bar
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Color.White)
+                    .border(width = 1.dp, color = Color(0xFFE6E2DB))
+                    .padding(top = 28.dp, bottom = 16.dp, start = 20.dp, end = 20.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "Налаштування",
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color(0xFF181511),
+                    letterSpacing = (-0.5).sp
+                )
+            }
+
+            Column(
+                modifier = Modifier.padding(horizontal = 16.dp),
+                verticalArrangement = Arrangement.spacedBy(24.dp)
+            ) {
+                Spacer(modifier = Modifier.height(8.dp))
+
+                // Stats Section (2 Cards Grid)
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    // Active Stat Card
+                    Box(
+                        modifier = Modifier
+                            .weight(1f)
+                            .height(128.dp)
+                            .shadow(1.dp, shape = RoundedCornerShape(16.dp))
+                            .clip(RoundedCornerShape(16.dp))
+                            .background(Color.White)
+                            .border(1.dp, Color(0xFFE6E2DB), RoundedCornerShape(16.dp))
+                            .padding(20.dp)
+                    ) {
+                        // Background Watermark Icon
+                        Icon(
+                            imageVector = PendingActionsIcon,
+                            contentDescription = null,
+                            tint = Color(0xFF181511).copy(alpha = 0.05f),
+                            modifier = Modifier
+                                .size(88.dp)
+                                .align(Alignment.BottomEnd)
+                        )
+
+                        Column(
+                            modifier = Modifier.fillMaxSize(),
+                            verticalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.Top
+                            ) {
+                                Text(
+                                    text = "$activeCount",
+                                    fontSize = 32.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = Color(0xFF181511)
+                                )
+                                Box(
+                                    modifier = Modifier
+                                        .size(32.dp)
+                                        .clip(RoundedCornerShape(8.dp))
+                                        .background(Color(0xFFFEF3C7)),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Icon(
+                                        imageVector = PendingActionsIcon,
+                                        contentDescription = null,
+                                        tint = Color(0xFFD97706),
+                                        modifier = Modifier.size(18.dp)
+                                    )
+                                }
+                            }
+
+                            Text(
+                                text = "В РОБОТІ",
+                                fontSize = 11.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = Color(0xFF6B5E4C),
+                                letterSpacing = 1.sp
+                            )
+                        }
+                    }
+
+                    // Completed Stat Card
+                    Box(
+                        modifier = Modifier
+                            .weight(1f)
+                            .height(128.dp)
+                            .shadow(1.dp, shape = RoundedCornerShape(16.dp))
+                            .clip(RoundedCornerShape(16.dp))
+                            .background(Color.White)
+                            .border(1.dp, Color(0xFFE6E2DB), RoundedCornerShape(16.dp))
+                            .padding(20.dp)
+                    ) {
+                        // Background Watermark Icon
+                        Icon(
+                            imageVector = CheckCircleIcon,
+                            contentDescription = null,
+                            tint = Color(0xFF181511).copy(alpha = 0.05f),
+                            modifier = Modifier
+                                .size(88.dp)
+                                .align(Alignment.BottomEnd)
+                        )
+
+                        Column(
+                            modifier = Modifier.fillMaxSize(),
+                            verticalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.Top
+                            ) {
+                                Text(
+                                    text = "$completedCount",
+                                    fontSize = 32.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = Color(0xFF181511)
+                                )
+                                Box(
+                                    modifier = Modifier
+                                        .size(32.dp)
+                                        .clip(RoundedCornerShape(8.dp))
+                                        .background(Color(0xFFDCFCE7)),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Icon(
+                                        imageVector = CheckCircleIcon,
+                                        contentDescription = null,
+                                        tint = Color(0xFF16A34A),
+                                        modifier = Modifier.size(18.dp)
+                                    )
+                                }
+                            }
+
+                            Text(
+                                text = "ВИКОНАНО",
+                                fontSize = 11.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = Color(0xFF6B5E4C),
+                                letterSpacing = 1.sp
+                            )
+                        }
+                    }
+                }
+
+                // Admin Console Section
+                Column {
+                    Text(
+                        text = "АДМІНІСТРУВАННЯ",
+                        fontSize = 11.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color(0xFF6B5E4C),
+                        letterSpacing = 1.5.sp,
+                        modifier = Modifier.padding(start = 4.dp, bottom = 12.dp)
+                    )
+
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .shadow(2.dp, shape = RoundedCornerShape(20.dp))
+                            .clip(RoundedCornerShape(20.dp))
+                            .background(Color.White)
+                            .border(1.dp, Color(0xFFE6E2DB), RoundedCornerShape(20.dp))
+                            .clickable { onManageTeamClick() }
+                    ) {
+                        // Left Accent Bar
+                        Box(
+                            modifier = Modifier
+                                .fillMaxHeight()
+                                .width(5.dp)
+                                .align(Alignment.CenterStart)
+                                .background(Color(0xFFF9A20B))
+                        )
+
+                        // Watermark Security Icon
+                        Icon(
+                            imageVector = SecurityIcon,
+                            contentDescription = null,
+                            tint = Color(0xFF181511).copy(alpha = 0.04f),
+                            modifier = Modifier
+                                .size(110.dp)
+                                .align(Alignment.BottomEnd)
+                        )
+
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 20.dp, vertical = 18.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(16.dp)
+                        ) {
+                            Box(
+                                modifier = Modifier
+                                    .size(44.dp)
+                                    .clip(RoundedCornerShape(12.dp))
+                                    .background(Color(0xFFF9A20B).copy(alpha = 0.15f)),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Icon(
+                                    imageVector = GroupIcon,
+                                    contentDescription = null,
+                                    tint = Color(0xFFD97706),
+                                    modifier = Modifier.size(24.dp)
+                                )
+                            }
+
+                            Column(modifier = Modifier.weight(1f)) {
+                                Text(
+                                    text = "Керування командою",
+                                    fontSize = 17.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = Color(0xFF181511)
+                                )
+                                Spacer(modifier = Modifier.height(2.dp))
+                                Text(
+                                    text = "Підтвердження нових користувачів та доступ.",
+                                    fontSize = 13.sp,
+                                    color = Color(0xFF6B5E4C)
+                                )
+                            }
+                        }
+                    }
+                }
+
+                // Settings Section
+                Column {
+                    Text(
+                        text = "НАЛАШТУВАННЯ",
+                        fontSize = 11.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color(0xFF6B5E4C),
+                        letterSpacing = 1.5.sp,
+                        modifier = Modifier.padding(start = 4.dp, bottom = 12.dp)
+                    )
+
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(20.dp))
+                            .background(Color.White)
+                            .border(1.dp, Color(0xFFE6E2DB), RoundedCornerShape(20.dp))
+                    ) {
+                        // Theme Item
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable { }
+                                .padding(horizontal = 20.dp, vertical = 16.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Icon(
+                                    imageVector = PaletteIcon,
+                                    contentDescription = null,
+                                    tint = Color(0xFF6B5E4C),
+                                    modifier = Modifier.size(22.dp)
+                                )
+                                Spacer(modifier = Modifier.width(16.dp))
+                                Text(
+                                    text = "Тема оформлення",
+                                    fontSize = 15.sp,
+                                    fontWeight = FontWeight.SemiBold,
+                                    color = Color(0xFF181511)
+                                )
+                            }
+
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Text(
+                                    text = "Midnight",
+                                    fontSize = 14.sp,
+                                    fontWeight = FontWeight.Medium,
+                                    color = Color(0xFF6B5E4C)
+                                )
+                                Spacer(modifier = Modifier.width(6.dp))
+                                Icon(
+                                    imageVector = ChevronRightIcon,
+                                    contentDescription = null,
+                                    tint = Color(0xFF9CA3AF),
+                                    modifier = Modifier.size(18.dp)
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
