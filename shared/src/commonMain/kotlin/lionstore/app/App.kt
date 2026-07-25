@@ -496,6 +496,105 @@ val DeleteOutlinedIcon: ImageVector by lazy {
     }.build()
 }
 
+val HomeIcon: ImageVector by lazy {
+    ImageVector.Builder(name = "Home", defaultWidth = 24.dp, defaultHeight = 24.dp, viewportWidth = 24f, viewportHeight = 24f).apply {
+        path(fill = SolidColor(Color.Black)) {
+            moveTo(10f, 20f)
+            verticalLineTo(14f)
+            horizontalLineTo(14f)
+            verticalLineTo(20f)
+            horizontalLineTo(19f)
+            verticalLineTo(12f)
+            horizontalLineTo(22f)
+            lineTo(12f, 3f)
+            lineTo(2f, 12f)
+            horizontalLineTo(5f)
+            verticalLineTo(20f)
+            horizontalLineTo(10f)
+            close()
+        }
+    }.build()
+}
+
+// ----------------------------------------------------
+// BOTTOM NAVIGATION BAR COMPONENTS (Material 3 Style)
+// ----------------------------------------------------
+sealed class BottomNavItem(
+    val title: String,
+    val icon: ImageVector,
+    val screen: Screen
+) {
+    object Home : BottomNavItem("Головна", HomeIcon, Screen.Dashboard)
+    object Search : BottomNavItem("Пошук", SearchIcon, Screen.Search)
+    object NewTicket : BottomNavItem("Створити", AddIcon, Screen.NewTicket)
+}
+
+@Composable
+fun AppBottomNavigationBar(
+    currentScreen: Screen,
+    onNavigate: (Screen) -> Unit
+) {
+    val items = listOf(
+        BottomNavItem.Home,
+        BottomNavItem.Search,
+        BottomNavItem.NewTicket
+    )
+
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .shadow(elevation = 16.dp)
+            .background(Color.White)
+            .border(width = 1.dp, color = Color(0xFFE5E7EB))
+            .padding(vertical = 8.dp, horizontal = 12.dp)
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceAround,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            items.forEach { item ->
+                val isSelected = when (currentScreen) {
+                    is Screen.Dashboard -> item.screen is Screen.Dashboard
+                    is Screen.Search -> item.screen is Screen.Search
+                    is Screen.NewTicket -> item.screen is Screen.NewTicket
+                    else -> false
+                }
+
+                Box(
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(20.dp))
+                        .background(if (isSelected) Color(0xFFFEF3C7) else Color.Transparent)
+                        .clickable { onNavigate(item.screen) }
+                        .padding(horizontal = 20.dp, vertical = 8.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        Icon(
+                            imageVector = item.icon,
+                            contentDescription = item.title,
+                            tint = if (isSelected) Color(0xFFD97706) else Color(0xFF9CA3AF),
+                            modifier = Modifier.size(22.dp)
+                        )
+                        if (isSelected) {
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Text(
+                                text = item.title,
+                                fontSize = 13.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = Color(0xFFD97706)
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 @Composable
 @Preview
 fun App() {
@@ -705,6 +804,20 @@ fun App() {
                 }
             }
 
+            // Bottom Navigation Bar (Visible on primary screens: Dashboard, Search, NewTicket)
+            if (currentScreen is Screen.Dashboard || currentScreen is Screen.Search || currentScreen is Screen.NewTicket) {
+                Box(
+                    modifier = Modifier.align(Alignment.BottomCenter)
+                ) {
+                    AppBottomNavigationBar(
+                        currentScreen = currentScreen,
+                        onNavigate = { targetScreen ->
+                            currentScreen = targetScreen
+                        }
+                    )
+                }
+            }
+
             // Exit Banner Toast
             if (showExitBanner) {
                 Box(
@@ -770,7 +883,7 @@ fun DashboardScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
-                .padding(bottom = 24.dp)
+                .padding(bottom = 88.dp)
         ) {
             // Header with Camera Notch Offset (top padding = 28.dp)
             Column(
@@ -1197,7 +1310,7 @@ fun NewTicketScreen(
                 .fillMaxWidth()
                 .shadow(16.dp)
                 .background(Color.White)
-                .padding(16.dp)
+                .padding(start = 16.dp, end = 16.dp, top = 12.dp, bottom = 78.dp)
         ) {
             Box(
                 modifier = Modifier
@@ -1396,7 +1509,7 @@ fun SearchTicketsScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .verticalScroll(rememberScrollState())
-                    .padding(20.dp),
+                    .padding(start = 20.dp, end = 20.dp, top = 20.dp, bottom = 88.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 Text(
