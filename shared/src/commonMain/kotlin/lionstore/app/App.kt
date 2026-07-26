@@ -908,9 +908,9 @@ enum class ThemeMode(
     val title: String,
     val icon: ImageVector
 ) {
-    LIGHT("Light", LightModeIcon),
-    DARK("Dark", DarkModeIcon),
-    SYSTEM("System", SystemModeIcon)
+    LIGHT("Світла", LightModeIcon),
+    DARK("Темна", DarkModeIcon),
+    SYSTEM("Системна", SystemModeIcon)
 }
 
 data class ThemeColorItem(
@@ -929,11 +929,10 @@ fun AppearanceSection(
 ) {
     val themeColors = remember {
         listOf(
-            ThemeColorItem("dynamic", "Dynamic", Color(0xFF90CAF9)),
-            ThemeColorItem("ocean", "Ocean", Color(0xFF29B6F6)),
-            ThemeColorItem("purple", "Purple", Color(0xFF7E57C2)),
-            ThemeColorItem("forest", "Forest", Color(0xFF388E3C)),
-            ThemeColorItem("slate", "Slate", Color(0xFF546E7A))
+            ThemeColorItem("amber", "Янтарна", Color(0xFFF9A20B)),
+            ThemeColorItem("ocean", "Океан", Color(0xFF29B6F6)),
+            ThemeColorItem("purple", "Пурпурна", Color(0xFF7E57C2)),
+            ThemeColorItem("forest", "Лісова", Color(0xFF388E3C))
         )
     }
 
@@ -941,7 +940,7 @@ fun AppearanceSection(
         modifier = modifier.fillMaxWidth()
     ) {
         Text(
-            text = "APPEARANCE",
+            text = "ЗОВНІШНІЙ ВИГЛЯД",
             fontSize = 11.sp,
             fontWeight = FontWeight.Bold,
             color = Color(0xFF6B5E4C),
@@ -949,16 +948,19 @@ fun AppearanceSection(
             modifier = Modifier.padding(start = 4.dp, bottom = 12.dp)
         )
 
+        // Блок 1: Перемикач теми (Світла / Темна / Системна)
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .clip(RoundedCornerShape(16.dp))
-                .background(Color(0xFF161C24))
-                .padding(8.dp)
+                .shadow(1.dp, shape = RoundedCornerShape(20.dp))
+                .clip(RoundedCornerShape(20.dp))
+                .background(Color.White)
+                .border(1.dp, Color(0xFFE6E2DB), RoundedCornerShape(20.dp))
+                .padding(6.dp)
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                horizontalArrangement = Arrangement.spacedBy(6.dp)
             ) {
                 ThemeMode.values().forEach { mode ->
                     val isSelected = mode == selectedTheme
@@ -974,29 +976,29 @@ fun AppearanceSection(
 
         Spacer(modifier = Modifier.height(16.dp))
 
+        // Блок 2: Вибір акцентного кольору (Колірна тема - 4 палітри)
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .clip(RoundedCornerShape(16.dp))
-                .background(Color(0xFF161C24))
-                .padding(vertical = 16.dp)
+                .shadow(1.dp, shape = RoundedCornerShape(20.dp))
+                .clip(RoundedCornerShape(20.dp))
+                .background(Color.White)
+                .border(1.dp, Color(0xFFE6E2DB), RoundedCornerShape(20.dp))
+                .padding(20.dp)
         ) {
             Column {
                 Text(
-                    text = "Theme Color",
-                    fontSize = 15.sp,
-                    fontWeight = FontWeight.Medium,
-                    color = Color.White,
-                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp)
+                    text = "Колірна тема",
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color(0xFF181511)
                 )
 
-                Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(16.dp))
 
                 Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceAround
                 ) {
                     themeColors.forEach { item ->
                         val isSelected = item.id == selectedColorId
@@ -1019,15 +1021,17 @@ private fun ThemeModeSelectorItem(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val backgroundColor = if (isSelected) Color(0xFF025684) else Color.Transparent
-    val contentColor = if (isSelected) Color.White else Color(0xFF919EAB)
+    val backgroundColor = if (isSelected) Color(0xFFFEF3C7) else Color.Transparent
+    val borderColor = if (isSelected) Color(0xFFF9A20B) else Color.Transparent
+    val contentColor = if (isSelected) Color(0xFFD97706) else Color(0xFF6B5E4C)
 
     Box(
         modifier = modifier
-            .clip(RoundedCornerShape(12.dp))
+            .clip(RoundedCornerShape(14.dp))
             .background(backgroundColor)
+            .border(1.dp, borderColor, RoundedCornerShape(14.dp))
             .clickable(onClick = onClick)
-            .padding(vertical = 14.dp),
+            .padding(vertical = 12.dp),
         contentAlignment = Alignment.Center
     ) {
         Column(
@@ -1044,7 +1048,7 @@ private fun ThemeModeSelectorItem(
             Text(
                 text = mode.title,
                 fontSize = 13.sp,
-                fontWeight = if (isSelected) FontWeight.SemiBold else FontWeight.Normal,
+                fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium,
                 color = contentColor
             )
         }
@@ -1063,11 +1067,11 @@ private fun ThemeColorSelectorItem(
     ) {
         Box(
             modifier = Modifier
-                .size(52.dp)
+                .size(48.dp)
                 .then(
                     if (isSelected) {
                         Modifier
-                            .border(2.dp, Color(0xFF0288D1), CircleShape)
+                            .border(2.dp, item.color, CircleShape)
                             .padding(3.dp)
                     } else Modifier
                 )
@@ -1078,7 +1082,7 @@ private fun ThemeColorSelectorItem(
             if (isSelected) {
                 Icon(
                     imageVector = CheckIcon,
-                    contentDescription = "Selected",
+                    contentDescription = "Обрано",
                     tint = Color.White,
                     modifier = Modifier.size(20.dp)
                 )
@@ -1090,7 +1094,8 @@ private fun ThemeColorSelectorItem(
         Text(
             text = item.name,
             fontSize = 12.sp,
-            color = if (isSelected) Color(0xFF64B5F6) else Color(0xFF919EAB)
+            fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium,
+            color = if (isSelected) Color(0xFF181511) else Color(0xFF6B5E4C)
         )
     }
 }
@@ -3379,8 +3384,8 @@ fun SettingsScreen(
     val activeCount = tickets.count { it.status == "В роботі" || it.status == "На узгодженні" || it.status == "Очікує запчастин" }
     val completedCount = tickets.count { it.status == "Готовий до видачі" || it.status == "Завершений" }
 
-    var selectedTheme by remember { mutableStateOf(ThemeMode.DARK) }
-    var selectedColorId by remember { mutableStateOf("ocean") }
+    var selectedTheme by remember { mutableStateOf(ThemeMode.LIGHT) }
+    var selectedColorId by remember { mutableStateOf("amber") }
 
     Box(
         modifier = Modifier
