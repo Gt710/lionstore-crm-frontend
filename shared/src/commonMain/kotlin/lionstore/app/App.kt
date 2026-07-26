@@ -1189,6 +1189,10 @@ fun App() {
         var backPressTimestamp by remember { mutableStateOf(0L) }
         var showExitBanner by remember { mutableStateOf(false) }
 
+        // Theme and Appearance State
+        var selectedTheme by remember { mutableStateOf(ThemeMode.LIGHT) }
+        var selectedColorId by remember { mutableStateOf("amber") }
+
         // Master List of Tickets
         val tickets = remember {
             mutableStateListOf(
@@ -1339,7 +1343,13 @@ fun App() {
                         OrdersScreen(onBackClick = handleBack)
                     }
                     is Screen.Settings -> {
-                        SettingsScreen(tickets = tickets)
+                        SettingsScreen(
+                            tickets = tickets,
+                            selectedTheme = selectedTheme,
+                            onThemeSelected = { selectedTheme = it },
+                            selectedColorId = selectedColorId,
+                            onColorSelected = { selectedColorId = it }
+                        )
                     }
                     is Screen.Search -> {
                         SearchTicketsScreen(
@@ -3379,13 +3389,14 @@ fun OrdersScreen(
 @Composable
 fun SettingsScreen(
     tickets: List<RepairTicket>,
+    selectedTheme: ThemeMode,
+    onThemeSelected: (ThemeMode) -> Unit,
+    selectedColorId: String,
+    onColorSelected: (String) -> Unit,
     onManageTeamClick: () -> Unit = {}
 ) {
     val activeCount = tickets.count { it.status == "В роботі" || it.status == "На узгодженні" || it.status == "Очікує запчастин" }
     val completedCount = tickets.count { it.status == "Готовий до видачі" || it.status == "Завершений" }
-
-    var selectedTheme by remember { mutableStateOf(ThemeMode.LIGHT) }
-    var selectedColorId by remember { mutableStateOf("amber") }
 
     Box(
         modifier = Modifier
@@ -3634,9 +3645,9 @@ fun SettingsScreen(
                 // Appearance Section
                 AppearanceSection(
                     selectedTheme = selectedTheme,
-                    onThemeSelected = { selectedTheme = it },
+                    onThemeSelected = onThemeSelected,
                     selectedColorId = selectedColorId,
-                    onColorSelected = { selectedColorId = it }
+                    onColorSelected = onColorSelected
                 )
             }
         }
