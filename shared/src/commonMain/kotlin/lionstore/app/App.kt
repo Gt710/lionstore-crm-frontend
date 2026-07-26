@@ -814,6 +814,287 @@ val ChevronRightIcon: ImageVector by lazy {
     }.build()
 }
 
+val LightModeIcon: ImageVector by lazy {
+    ImageVector.Builder(name = "LightMode", defaultWidth = 24.dp, defaultHeight = 24.dp, viewportWidth = 24f, viewportHeight = 24f).apply {
+        path(fill = SolidColor(Color.Black)) {
+            moveTo(12f, 7f)
+            curveTo(9.24f, 7f, 7f, 9.24f, 7f, 12f)
+            curveTo(7f, 14.76f, 9.24f, 17f, 12f, 17f)
+            curveTo(14.76f, 17f, 17f, 14.76f, 17f, 12f)
+            curveTo(17f, 9.24f, 14.76f, 7f, 12f, 7f)
+            close()
+            moveTo(12f, 2f)
+            verticalLineTo(4f)
+            moveTo(12f, 20f)
+            verticalLineTo(22f)
+            moveTo(4.22f, 4.22f)
+            lineTo(5.64f, 5.64f)
+            moveTo(18.36f, 18.36f)
+            lineTo(19.78f, 19.78f)
+            moveTo(2f, 12f)
+            horizontalLineTo(4f)
+            moveTo(20f, 12f)
+            horizontalLineTo(22f)
+            moveTo(4.22f, 19.78f)
+            lineTo(5.64f, 18.36f)
+            moveTo(18.36f, 5.64f)
+            lineTo(19.78f, 4.22f)
+        }
+    }.build()
+}
+
+val DarkModeIcon: ImageVector by lazy {
+    ImageVector.Builder(name = "DarkMode", defaultWidth = 24.dp, defaultHeight = 24.dp, viewportWidth = 24f, viewportHeight = 24f).apply {
+        path(fill = SolidColor(Color.Black)) {
+            moveTo(12.3f, 2f)
+            curveTo(6.58f, 2.38f, 2f, 7.15f, 2f, 13f)
+            curveTo(2f, 19.08f, 6.92f, 24f, 13f, 24f)
+            curveTo(18.85f, 24f, 23.62f, 19.42f, 24f, 13.7f)
+            curveTo(20.35f, 15.35f, 15.65f, 13.93f, 13.7f, 10.3f)
+            curveTo(12.25f, 7.58f, 12.8f, 4.25f, 14.8f, 2.1f)
+            curveTo(14f, 2f, 13.15f, 1.95f, 12.3f, 2f)
+            close()
+        }
+    }.build()
+}
+
+val SystemModeIcon: ImageVector by lazy {
+    ImageVector.Builder(name = "SystemMode", defaultWidth = 24.dp, defaultHeight = 24.dp, viewportWidth = 24f, viewportHeight = 24f).apply {
+        path(fill = SolidColor(Color.Black)) {
+            moveTo(20.71f, 5.63f)
+            lineTo(18.37f, 3.29f)
+            curveTo(17.98f, 2.9f, 17.35f, 2.9f, 16.96f, 3.29f)
+            lineTo(15.12f, 5.13f)
+            lineTo(14.06f, 4.07f)
+            lineTo(12.65f, 5.48f)
+            lineTo(13.71f, 6.54f)
+            lineTo(12.05f, 8.2f)
+            lineTo(10.64f, 6.79f)
+            lineTo(9.23f, 8.2f)
+            lineTo(10.64f, 9.61f)
+            lineTo(3f, 17.25f)
+            verticalLineTo(21f)
+            horizontalLineTo(6.75f)
+            lineTo(14.39f, 13.36f)
+            lineTo(15.8f, 14.77f)
+            lineTo(17.21f, 13.36f)
+            lineTo(15.8f, 11.95f)
+            lineTo(17.46f, 10.29f)
+            lineTo(18.52f, 11.35f)
+            lineTo(19.93f, 9.94f)
+            lineTo(18.87f, 8.88f)
+            lineTo(20.71f, 7.04f)
+            curveTo(21.1f, 6.65f, 21.1f, 6.02f, 20.71f, 5.63f)
+            close()
+        }
+    }.build()
+}
+
+val CheckIcon: ImageVector by lazy {
+    ImageVector.Builder(name = "Check", defaultWidth = 24.dp, defaultHeight = 24.dp, viewportWidth = 24f, viewportHeight = 24f).apply {
+        path(fill = SolidColor(Color.Black)) {
+            moveTo(9f, 16.17f)
+            lineTo(4.83f, 12f)
+            lineTo(3.41f, 13.41f)
+            lineTo(9f, 19f)
+            lineTo(21f, 7f)
+            lineTo(19.59f, 5.59f)
+            close()
+        }
+    }.build()
+}
+
+enum class ThemeMode(
+    val title: String,
+    val icon: ImageVector
+) {
+    LIGHT("Light", LightModeIcon),
+    DARK("Dark", DarkModeIcon),
+    SYSTEM("System", SystemModeIcon)
+}
+
+data class ThemeColorItem(
+    val id: String,
+    val name: String,
+    val color: Color
+)
+
+@Composable
+fun AppearanceSection(
+    selectedTheme: ThemeMode,
+    onThemeSelected: (ThemeMode) -> Unit,
+    selectedColorId: String,
+    onColorSelected: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val themeColors = remember {
+        listOf(
+            ThemeColorItem("dynamic", "Dynamic", Color(0xFF90CAF9)),
+            ThemeColorItem("ocean", "Ocean", Color(0xFF29B6F6)),
+            ThemeColorItem("purple", "Purple", Color(0xFF7E57C2)),
+            ThemeColorItem("forest", "Forest", Color(0xFF388E3C)),
+            ThemeColorItem("slate", "Slate", Color(0xFF546E7A))
+        )
+    }
+
+    Column(
+        modifier = modifier.fillMaxWidth()
+    ) {
+        Text(
+            text = "APPEARANCE",
+            fontSize = 11.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color(0xFF6B5E4C),
+            letterSpacing = 1.5.sp,
+            modifier = Modifier.padding(start = 4.dp, bottom = 12.dp)
+        )
+
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(16.dp))
+                .background(Color(0xFF161C24))
+                .padding(8.dp)
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                ThemeMode.values().forEach { mode ->
+                    val isSelected = mode == selectedTheme
+                    ThemeModeSelectorItem(
+                        mode = mode,
+                        isSelected = isSelected,
+                        onClick = { onThemeSelected(mode) },
+                        modifier = Modifier.weight(1f)
+                    )
+                }
+            }
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(16.dp))
+                .background(Color(0xFF161C24))
+                .padding(vertical = 16.dp)
+        ) {
+            Column {
+                Text(
+                    text = "Theme Color",
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.Medium,
+                    color = Color.White,
+                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp)
+                )
+
+                Spacer(modifier = Modifier.height(12.dp))
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    themeColors.forEach { item ->
+                        val isSelected = item.id == selectedColorId
+                        ThemeColorSelectorItem(
+                            item = item,
+                            isSelected = isSelected,
+                            onClick = { onColorSelected(item.id) }
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun ThemeModeSelectorItem(
+    mode: ThemeMode,
+    isSelected: Boolean,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val backgroundColor = if (isSelected) Color(0xFF025684) else Color.Transparent
+    val contentColor = if (isSelected) Color.White else Color(0xFF919EAB)
+
+    Box(
+        modifier = modifier
+            .clip(RoundedCornerShape(12.dp))
+            .background(backgroundColor)
+            .clickable(onClick = onClick)
+            .padding(vertical = 14.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Icon(
+                imageVector = mode.icon,
+                contentDescription = mode.title,
+                tint = contentColor,
+                modifier = Modifier.size(22.dp)
+            )
+            Spacer(modifier = Modifier.height(6.dp))
+            Text(
+                text = mode.title,
+                fontSize = 13.sp,
+                fontWeight = if (isSelected) FontWeight.SemiBold else FontWeight.Normal,
+                color = contentColor
+            )
+        }
+    }
+}
+
+@Composable
+private fun ThemeColorSelectorItem(
+    item: ThemeColorItem,
+    isSelected: Boolean,
+    onClick: () -> Unit
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.clickable(onClick = onClick)
+    ) {
+        Box(
+            modifier = Modifier
+                .size(52.dp)
+                .then(
+                    if (isSelected) {
+                        Modifier
+                            .border(2.dp, Color(0xFF0288D1), CircleShape)
+                            .padding(3.dp)
+                    } else Modifier
+                )
+                .clip(CircleShape)
+                .background(item.color),
+            contentAlignment = Alignment.Center
+        ) {
+            if (isSelected) {
+                Icon(
+                    imageVector = CheckIcon,
+                    contentDescription = "Selected",
+                    tint = Color.White,
+                    modifier = Modifier.size(20.dp)
+                )
+            }
+        }
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Text(
+            text = item.name,
+            fontSize = 12.sp,
+            color = if (isSelected) Color(0xFF64B5F6) else Color(0xFF919EAB)
+        )
+    }
+}
+
 // ----------------------------------------------------
 // FLOATING PILL BOTTOM NAVIGATION BAR (Matching Photo)
 // ----------------------------------------------------
@@ -2180,7 +2461,7 @@ fun TicketDetailsScreen(
 
                             Column(modifier = Modifier.weight(1f)) {
                                 Text(event.title, fontSize = 15.sp, fontWeight = FontWeight.Bold, color = Color(0xFF181511))
-                                Text("${event.date} • ${event.by}", fontSize = 13.sp, color = Color(0xFF6B7280))
+                                Text(event.date, fontSize = 13.sp, color = Color(0xFF6B7280))
 
                                 if (!event.note.isNullOrBlank()) {
                                     Spacer(modifier = Modifier.height(6.dp))
@@ -3098,6 +3379,9 @@ fun SettingsScreen(
     val activeCount = tickets.count { it.status == "В роботі" || it.status == "На узгодженні" || it.status == "Очікує запчастин" }
     val completedCount = tickets.count { it.status == "Готовий до видачі" || it.status == "Завершений" }
 
+    var selectedTheme by remember { mutableStateOf(ThemeMode.DARK) }
+    var selectedColorId by remember { mutableStateOf("ocean") }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -3342,67 +3626,13 @@ fun SettingsScreen(
                     }
                 }
 
-                // Settings Section
-                Column {
-                    Text(
-                        text = "НАЛАШТУВАННЯ",
-                        fontSize = 11.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color(0xFF6B5E4C),
-                        letterSpacing = 1.5.sp,
-                        modifier = Modifier.padding(start = 4.dp, bottom = 12.dp)
-                    )
-
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clip(RoundedCornerShape(20.dp))
-                            .background(Color.White)
-                            .border(1.dp, Color(0xFFE6E2DB), RoundedCornerShape(20.dp))
-                    ) {
-                        // Theme Item
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .clickable { }
-                                .padding(horizontal = 20.dp, vertical = 16.dp),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            Row(verticalAlignment = Alignment.CenterVertically) {
-                                Icon(
-                                    imageVector = PaletteIcon,
-                                    contentDescription = null,
-                                    tint = Color(0xFF6B5E4C),
-                                    modifier = Modifier.size(22.dp)
-                                )
-                                Spacer(modifier = Modifier.width(16.dp))
-                                Text(
-                                    text = "Тема оформлення",
-                                    fontSize = 15.sp,
-                                    fontWeight = FontWeight.SemiBold,
-                                    color = Color(0xFF181511)
-                                )
-                            }
-
-                            Row(verticalAlignment = Alignment.CenterVertically) {
-                                Text(
-                                    text = "Midnight",
-                                    fontSize = 14.sp,
-                                    fontWeight = FontWeight.Medium,
-                                    color = Color(0xFF6B5E4C)
-                                )
-                                Spacer(modifier = Modifier.width(6.dp))
-                                Icon(
-                                    imageVector = ChevronRightIcon,
-                                    contentDescription = null,
-                                    tint = Color(0xFF9CA3AF),
-                                    modifier = Modifier.size(18.dp)
-                                )
-                            }
-                        }
-                    }
-                }
+                // Appearance Section
+                AppearanceSection(
+                    selectedTheme = selectedTheme,
+                    onThemeSelected = { selectedTheme = it },
+                    selectedColorId = selectedColorId,
+                    onColorSelected = { selectedColorId = it }
+                )
             }
         }
     }
