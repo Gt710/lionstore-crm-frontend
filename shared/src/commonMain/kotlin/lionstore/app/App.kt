@@ -72,6 +72,39 @@ data class RepairTicket(
     val activityHistory: List<ActivityEvent> = emptyList()
 )
 
+data class CustomerOrder(
+    val id: String = "#ORD-501",
+    val orderId: Int = 501,
+    val dateCreation: String = "05.07.2026",
+    val timeCreation: String = "17:40:00",
+    val orderName: String,
+    val orderDescription: String = "",
+    val clientName: String,
+    val clientPhone: String,
+    val orderStatus: String = "Активний",
+    val activityHistory: List<ActivityEvent> = emptyList()
+)
+
+fun getOrderStatusBgColor(status: String): Color {
+    return when (status) {
+        "Активний" -> Color(0xFFEFF6FF)
+        "Замовлено" -> Color(0xFFF3E8FF)
+        "Готовий до видачі" -> Color(0xFFD1FAE5)
+        "Завершений" -> Color(0xFFF1F5F9)
+        else -> Color(0xFFF1F5F9)
+    }
+}
+
+fun getOrderStatusTextColor(status: String): Color {
+    return when (status) {
+        "Активний" -> Color(0xFF1E40AF)
+        "Замовлено" -> Color(0xFF6B21A8)
+        "Готовий до видачі" -> Color(0xFF065F46)
+        "Завершений" -> Color(0xFF475569)
+        else -> Color(0xFF475569)
+    }
+}
+
 // Status colors helper
 fun getStatusBgColor(status: String): Color {
     return when (status) {
@@ -1285,6 +1318,69 @@ fun App() {
             )
         }
 
+        // Master List of Orders
+        val orders = remember {
+            mutableStateListOf(
+                CustomerOrder(
+                    id = "#ORD-501",
+                    orderId = 501,
+                    dateCreation = "05.07.2026",
+                    timeCreation = "17:40:00",
+                    orderName = "Акумулятор для iPhone 13 Pro Max",
+                    orderDescription = "Клієнт просив оригінал або якісну копію (Baseus/NOHON).",
+                    clientName = "Петренко Петро Петрович",
+                    clientPhone = "0931234567",
+                    orderStatus = "Активний",
+                    activityHistory = listOf(
+                        ActivityEvent(
+                            title = "Створено замовлення #ORD-501",
+                            date = "05.07.2026, 17:40",
+                            by = "Система",
+                            note = "Замовлення оформлено та очікує підтвердження."
+                        )
+                    )
+                ),
+                CustomerOrder(
+                    id = "#ORD-500",
+                    orderId = 500,
+                    dateCreation = "04.07.2026",
+                    timeCreation = "14:15:00",
+                    orderName = "Дисплейний модуль Samsung Galaxy S23",
+                    orderDescription = "Оригінальний AMOLED модуль (Black).",
+                    clientName = "Іваненко Іван Васильович",
+                    clientPhone = "0509876543",
+                    orderStatus = "Замовлено",
+                    activityHistory = listOf(
+                        ActivityEvent(
+                            title = "Замовлено у постачальника",
+                            date = "04.07.2026, 15:30",
+                            by = "Система",
+                            note = "Очікується доставка через 2 дні."
+                        )
+                    )
+                ),
+                CustomerOrder(
+                    id = "#ORD-498",
+                    orderId = 498,
+                    dateCreation = "01.07.2026",
+                    timeCreation = "11:20:00",
+                    orderName = "Зарядний пристрій MagSafe Charger 15W",
+                    orderDescription = "Упаковка не пошкоджена.",
+                    clientName = "Сидоренко Ольга Миколаївна",
+                    clientPhone = "0671112233",
+                    orderStatus = "Готовий до видачі",
+                    activityHistory = listOf(
+                        ActivityEvent(
+                            title = "Прибуло у відділення",
+                            date = "03.07.2026, 10:00",
+                            by = "Система",
+                            note = "Клієнту надіслано SMS-повідомлення."
+                        )
+                    )
+                )
+            )
+        }
+
         // Function for Back Action
         val handleBack = {
             if (currentScreen != Screen.Dashboard) {
@@ -1340,7 +1436,9 @@ fun App() {
                         )
                     }
                     is Screen.Orders -> {
-                        OrdersScreen(onBackClick = handleBack)
+                        OrdersScreen(
+                            orders = orders
+                        )
                     }
                     is Screen.Settings -> {
                         SettingsScreen(
@@ -3283,99 +3381,219 @@ fun Divider(color: Color) {
 }
 
 // ----------------------------------------------------
-// 9. ORDERS SCREEN (Замовлення - Скоро буде)
+// 9. ORDERS SCREEN (Замовлення)
 // ----------------------------------------------------
 @Composable
 fun OrdersScreen(
-    onBackClick: () -> Unit
+    orders: List<CustomerOrder>,
+    onNewOrderClick: () -> Unit = {},
+    onSearchClick: () -> Unit = {},
+    onOrderClick: (CustomerOrder) -> Unit = {}
 ) {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color(0xFFF8F7F5))
-    ) {
-        Column(modifier = Modifier.fillMaxSize()) {
-            // Header Bar
-            Row(
+    Box(modifier = Modifier.fillMaxSize()) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+                .padding(bottom = 88.dp)
+        ) {
+            // Header with Camera Notch Offset (top padding = 28.dp)
+            Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(Color.White)
-                    .border(width = 1.dp, color = Color(0xFFE6E2DB))
-                    .padding(top = 28.dp, bottom = 16.dp, start = 20.dp, end = 20.dp),
-                verticalAlignment = Alignment.CenterVertically
+                    .padding(top = 28.dp, start = 20.dp, end = 20.dp, bottom = 24.dp)
             ) {
                 Text(
                     text = "Замовлення",
-                    fontSize = 24.sp,
-                    fontWeight = FontWeight.Bold,
+                    fontSize = 32.sp,
+                    fontWeight = FontWeight.ExtraBold,
                     color = Color(0xFF181511),
-                    letterSpacing = (-0.5).sp
+                    lineHeight = 38.sp
                 )
             }
 
-            // Central Placeholder Box
-            Box(
+            // Action Cards
+            Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .weight(1f)
-                    .padding(horizontal = 24.dp, vertical = 32.dp),
-                contentAlignment = Alignment.Center
+                    .padding(horizontal = 20.dp)
+                    .padding(bottom = 32.dp),
+                horizontalArrangement = Arrangement.spacedBy(16.dp)
             ) {
+                // Primary Card: Нове замовлення
                 Column(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .shadow(elevation = 2.dp, shape = RoundedCornerShape(24.dp))
-                        .clip(RoundedCornerShape(24.dp))
-                        .background(Color.White)
-                        .border(1.dp, Color(0xFFE6E2DB), RoundedCornerShape(24.dp))
-                        .padding(32.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                        .weight(1f)
+                        .height(176.dp)
+                        .clip(RoundedCornerShape(16.dp))
+                        .background(Color(0xFFF9A20B))
+                        .clickable { onNewOrderClick() }
+                        .padding(20.dp),
+                    verticalArrangement = Arrangement.SpaceBetween
                 ) {
                     Box(
                         modifier = Modifier
-                            .size(80.dp)
-                            .clip(CircleShape)
-                            .background(Color(0xFFFEF3C7)),
+                            .size(48.dp)
+                            .background(Color.White.copy(alpha = 0.2f), CircleShape),
                         contentAlignment = Alignment.Center
                     ) {
                         Icon(
-                            imageVector = OrdersIcon,
-                            contentDescription = null,
-                            tint = Color(0xFFF9A20B),
-                            modifier = Modifier.size(40.dp)
+                            imageVector = AddIcon,
+                            contentDescription = "Створити",
+                            tint = Color(0xFF181511),
+                            modifier = Modifier.size(28.dp)
                         )
                     }
 
-                    Text(
-                        text = "Розділ замовлень",
-                        fontSize = 22.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color(0xFF181511)
-                    )
-
-                    Text(
-                        text = "Цей функціонал знаходиться у розробці та незабаром буде доступний!",
-                        fontSize = 14.sp,
-                        color = Color(0xFF6B5E4C),
-                        textAlign = TextAlign.Center,
-                        lineHeight = 20.sp
-                    )
-
-                    Row(
-                        modifier = Modifier
-                            .clip(RoundedCornerShape(20.dp))
-                            .background(Color(0xFFFEF3C7))
-                            .padding(horizontal = 16.dp, vertical = 6.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
+                    Column {
                         Text(
-                            text = "СКОРО",
-                            fontSize = 12.sp,
-                            fontWeight = FontWeight.ExtraBold,
-                            color = Color(0xFFD97706),
-                            letterSpacing = 1.sp
+                            text = "Нове замовлення",
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color(0xFF181511),
+                            lineHeight = 24.sp
                         )
+                        Text(
+                            text = "Створити замовлення",
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.Medium,
+                            color = Color(0xFF181511).copy(alpha = 0.8f)
+                        )
+                    }
+                }
+
+                // Dark Card: Пошук
+                Column(
+                    modifier = Modifier
+                        .weight(1f)
+                        .height(176.dp)
+                        .clip(RoundedCornerShape(16.dp))
+                        .background(Color(0xFF181511))
+                        .clickable { onSearchClick() }
+                        .padding(20.dp),
+                    verticalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .size(48.dp)
+                            .background(Color.White.copy(alpha = 0.1f), CircleShape),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            imageVector = SearchIcon,
+                            contentDescription = "Пошук",
+                            tint = Color.White,
+                            modifier = Modifier.size(28.dp)
+                        )
+                    }
+
+                    Column {
+                        Text(
+                            text = "Пошук",
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.White,
+                            lineHeight = 24.sp
+                        )
+                        Text(
+                            text = "Знайти за ID",
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.Medium,
+                            color = Color(0xFF9CA3AF)
+                        )
+                    }
+                }
+            }
+
+            // Recent Orders Section Header
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp, vertical = 8.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "Останні замовлення",
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color(0xFF181511)
+                )
+                Text(
+                    text = "Дивитись всі",
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    color = Color(0xFFF9A20B),
+                    modifier = Modifier.clickable { onSearchClick() }
+                )
+            }
+
+            // List of Recent Orders
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                if (orders.isEmpty()) {
+                    Text(
+                        text = "Замовлень поки немає.",
+                        fontSize = 14.sp,
+                        color = Color(0xFF6B7280)
+                    )
+                } else {
+                    orders.take(5).forEach { item ->
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .shadow(elevation = 1.dp, shape = RoundedCornerShape(12.dp))
+                                .background(Color.White, RoundedCornerShape(12.dp))
+                                .clickable { onOrderClick(item) }
+                                .padding(16.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Column(modifier = Modifier.weight(1f)) {
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.SpaceBetween,
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Text(
+                                        text = item.orderName,
+                                        fontSize = 16.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        color = Color(0xFF181511),
+                                        maxLines = 1,
+                                        overflow = TextOverflow.Ellipsis,
+                                        modifier = Modifier.weight(1f)
+                                    )
+                                    Spacer(modifier = Modifier.width(8.dp))
+                                    // Status Badge
+                                    Box(
+                                        modifier = Modifier
+                                            .clip(RoundedCornerShape(9999.dp))
+                                            .background(getOrderStatusBgColor(item.orderStatus))
+                                            .padding(horizontal = 10.dp, vertical = 4.dp)
+                                    ) {
+                                        Text(
+                                            text = item.orderStatus,
+                                            fontSize = 12.sp,
+                                            fontWeight = FontWeight.SemiBold,
+                                            color = getOrderStatusTextColor(item.orderStatus)
+                                        )
+                                    }
+                                }
+                                Spacer(modifier = Modifier.height(4.dp))
+                                Text(
+                                    text = "${item.id} • ${item.clientName} (${item.clientPhone})",
+                                    fontSize = 14.sp,
+                                    fontWeight = FontWeight.Medium,
+                                    color = Color(0xFF6B7280),
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis
+                                )
+                            }
+                        }
                     }
                 }
             }
