@@ -23,6 +23,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.graphics.PathFillType
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.path
 import androidx.compose.ui.platform.LocalClipboardManager
@@ -43,7 +46,10 @@ sealed class Screen {
     object Dashboard : Screen()
     object Orders : Screen()
     object Settings : Screen()
-    object Search : Screen()
+    data class Search(
+        val initialStatusFilter: String? = null,
+        val initialTechFilter: String? = null
+    ) : Screen()
     object NewTicket : Screen()
     data class TicketDetails(val ticketId: String) : Screen()
     data class EditTicket(val ticketId: String) : Screen()
@@ -555,27 +561,90 @@ val HomeIcon: ImageVector by lazy {
 val HandymanIcon: ImageVector by lazy {
     ImageVector.Builder(name = "Handyman", defaultWidth = 24.dp, defaultHeight = 24.dp, viewportWidth = 24f, viewportHeight = 24f).apply {
         path(fill = SolidColor(Color.Black)) {
-            moveTo(21.67f, 18.17f)
-            lineTo(14.9f, 11.4f)
-            curveTo(15.6f, 9.8f, 15.3f, 7.9f, 14f, 6.6f)
-            curveTo(12.6f, 5.2f, 10.5f, 4.9f, 8.8f, 5.7f)
-            lineTo(11.6f, 8.5f)
-            lineTo(9.5f, 10.6f)
-            lineTo(6.7f, 7.8f)
-            curveTo(5.9f, 9.5f, 6.2f, 11.6f, 7.6f, 13f)
-            curveTo(8.9f, 14.3f, 10.8f, 14.6f, 12.4f, 13.9f)
-            lineTo(19.17f, 20.67f)
-            curveTo(19.56f, 21.06f, 20.19f, 21.06f, 20.58f, 20.67f)
-            lineTo(21.67f, 19.58f)
-            curveTo(22.06f, 19.19f, 22.06f, 18.56f, 21.67f, 18.17f)
+            moveTo(18.48f, 21.91f)
+            quadTo(18.3f, 21.85f, 18.15f, 21.7f)
+            lineToRelative(-5.1f, -5.1f)
+            quadTo(12.9f, 16.45f, 12.84f, 16.27f)
+            reflectiveQuadTo(12.78f, 15.9f)
+            reflectiveQuadToRelative(0.06f, -0.38f)
+            reflectiveQuadTo(13.05f, 15.2f)
+            lineToRelative(2.13f, -2.13f)
+            quadToRelative(0.15f, -0.15f, 0.32f, -0.21f)
+            reflectiveQuadTo(15.88f, 12.8f)
+            reflectiveQuadToRelative(0.38f, 0.06f)
+            reflectiveQuadToRelative(0.32f, 0.21f)
+            lineToRelative(5.1f, 5.1f)
+            quadToRelative(0.15f, 0.15f, 0.21f, 0.32f)
+            reflectiveQuadToRelative(0.06f, 0.38f)
+            reflectiveQuadToRelative(-0.06f, 0.38f)
+            reflectiveQuadToRelative(-0.21f, 0.32f)
+            lineTo(19.55f, 21.7f)
+            quadToRelative(-0.15f, 0.15f, -0.32f, 0.21f)
+            reflectiveQuadToRelative(-0.38f, 0.06f)
+            reflectiveQuadTo(18.48f, 21.91f)
             close()
-            moveTo(13.67f, 3.83f)
-            lineTo(10.5f, 7f)
-            lineTo(13f, 9.5f)
-            lineTo(16.17f, 6.33f)
-            curveTo(16.56f, 5.94f, 16.56f, 5.31f, 16.17f, 4.92f)
-            lineTo(15.08f, 3.83f)
-            curveTo(14.69f, 3.44f, 14.06f, 3.44f, 13.67f, 3.83f)
+            moveTo(18.85f, 19.6f)
+            lineToRelative(0.73f, -0.73f)
+            lineTo(15.9f, 15.2f)
+            lineToRelative(-0.72f, 0.72f)
+            lineToRelative(3.68f, 3.68f)
+            close()
+            moveTo(4.74f, 21.93f)
+            quadTo(4.55f, 21.85f, 4.4f, 21.7f)
+            lineTo(2.3f, 19.6f)
+            quadTo(2.15f, 19.45f, 2.08f, 19.26f)
+            reflectiveQuadTo(2f, 18.88f)
+            reflectiveQuadTo(2.08f, 18.5f)
+            reflectiveQuadTo(2.3f, 18.18f)
+            lineToRelative(5.3f, -5.3f)
+            horizontalLineTo(9.73f)
+            lineToRelative(0.85f, -0.85f)
+            lineTo(6.45f, 7.9f)
+            horizontalLineTo(5.03f)
+            lineTo(2f, 4.88f)
+            lineTo(4.83f, 2.05f)
+            lineTo(7.85f, 5.07f)
+            verticalLineTo(6.5f)
+            lineToRelative(4.13f, 4.13f)
+            lineToRelative(2.9f, -2.9f)
+            lineTo(13.8f, 6.65f)
+            lineToRelative(1.4f, -1.4f)
+            horizontalLineTo(12.38f)
+            lineToRelative(-0.7f, -0.7f)
+            lineTo(15.23f, 1f)
+            lineToRelative(0.7f, 0.7f)
+            verticalLineTo(4.52f)
+            lineToRelative(1.4f, -1.4f)
+            lineToRelative(3.55f, 3.55f)
+            quadTo(21.3f, 7.1f, 21.53f, 7.64f)
+            quadToRelative(0.22f, 0.54f, 0.22f, 1.14f)
+            quadToRelative(0f, 0.6f, -0.22f, 1.15f)
+            quadTo(21.3f, 10.48f, 20.88f, 10.9f)
+            lineTo(18.75f, 8.77f)
+            lineToRelative(-1.4f, 1.4f)
+            lineTo(16.3f, 9.13f)
+            lineTo(11.13f, 14.3f)
+            verticalLineToRelative(2.1f)
+            lineToRelative(-5.3f, 5.3f)
+            quadTo(5.68f, 21.85f, 5.5f, 21.93f)
+            quadTo(5.33f, 22f, 5.13f, 22f)
+            reflectiveQuadTo(4.74f, 21.93f)
+            close()
+            moveTo(5.13f, 19.6f)
+            lineTo(9.38f, 15.35f)
+            verticalLineTo(14.63f)
+            horizontalLineTo(8.65f)
+            lineTo(4.4f, 18.88f)
+            lineTo(5.13f, 19.6f)
+            close()
+            moveToRelative(0f, 0f)
+            lineTo(4.4f, 18.88f)
+            lineToRelative(0.38f, 0.35f)
+            lineTo(5.13f, 19.6f)
+            close()
+            moveToRelative(13.73f, 0f)
+            lineToRelative(0.73f, -0.73f)
+            lineTo(18.85f, 19.6f)
             close()
         }
     }.build()
@@ -849,43 +918,137 @@ val ChevronRightIcon: ImageVector by lazy {
 
 val LightModeIcon: ImageVector by lazy {
     ImageVector.Builder(name = "LightMode", defaultWidth = 24.dp, defaultHeight = 24.dp, viewportWidth = 24f, viewportHeight = 24f).apply {
-        path(fill = SolidColor(Color.Black)) {
-            moveTo(12f, 7f)
-            curveTo(9.24f, 7f, 7f, 9.24f, 7f, 12f)
-            curveTo(7f, 14.76f, 9.24f, 17f, 12f, 17f)
-            curveTo(14.76f, 17f, 17f, 14.76f, 17f, 12f)
-            curveTo(17f, 9.24f, 14.76f, 7f, 12f, 7f)
+        path(
+            fill = SolidColor(Color.Black),
+            fillAlpha = 1f,
+            stroke = null,
+            strokeAlpha = 1f,
+            strokeLineWidth = 1f,
+            strokeLineCap = StrokeCap.Butt,
+            strokeLineJoin = StrokeJoin.Bevel,
+            strokeLineMiter = 1f,
+            pathFillType = PathFillType.Companion.NonZero
+        ) {
+            moveTo(14.13f, 14.13f)
+            quadTo(15f, 13.25f, 15f, 12f)
+            reflectiveQuadTo(14.13f, 9.88f)
+            reflectiveQuadTo(12f, 9f)
+            reflectiveQuadTo(9.88f, 9.88f)
+            reflectiveQuadTo(9f, 12f)
+            reflectiveQuadToRelative(0.88f, 2.13f)
+            reflectiveQuadTo(12f, 15f)
+            reflectiveQuadToRelative(2.13f, -0.88f)
             close()
-            moveTo(12f, 2f)
-            verticalLineTo(4f)
-            moveTo(12f, 20f)
-            verticalLineTo(22f)
-            moveTo(4.22f, 4.22f)
-            lineTo(5.64f, 5.64f)
-            moveTo(18.36f, 18.36f)
-            lineTo(19.78f, 19.78f)
-            moveTo(2f, 12f)
-            horizontalLineTo(4f)
-            moveTo(20f, 12f)
-            horizontalLineTo(22f)
-            moveTo(4.22f, 19.78f)
-            lineTo(5.64f, 18.36f)
-            moveTo(18.36f, 5.64f)
-            lineTo(19.78f, 4.22f)
+            moveTo(8.46f, 15.54f)
+            quadTo(7f, 14.08f, 7f, 12f)
+            quadTo(7f, 9.92f, 8.46f, 8.46f)
+            reflectiveQuadTo(12f, 7f)
+            reflectiveQuadToRelative(3.54f, 1.46f)
+            reflectiveQuadTo(17f, 12f)
+            reflectiveQuadToRelative(-1.46f, 3.54f)
+            reflectiveQuadTo(12f, 17f)
+            quadTo(9.93f, 17f, 8.46f, 15.54f)
+            close()
+            moveTo(5f, 13f)
+            horizontalLineTo(1f)
+            verticalLineTo(11f)
+            horizontalLineTo(5f)
+            verticalLineToRelative(2f)
+            close()
+            moveToRelative(18f, 0f)
+            horizontalLineTo(19f)
+            verticalLineTo(11f)
+            horizontalLineToRelative(4f)
+            verticalLineToRelative(2f)
+            close()
+            moveTo(11f, 5f)
+            verticalLineTo(1f)
+            horizontalLineToRelative(2f)
+            verticalLineTo(5f)
+            horizontalLineTo(11f)
+            close()
+            moveToRelative(0f, 18f)
+            verticalLineTo(19f)
+            horizontalLineToRelative(2f)
+            verticalLineToRelative(4f)
+            horizontalLineTo(11f)
+            close()
+            moveTo(6.4f, 7.75f)
+            lineTo(3.88f, 5.32f)
+            lineTo(5.3f, 3.85f)
+            lineToRelative(2.4f, 2.5f)
+            lineTo(6.4f, 7.75f)
+            close()
+            moveToRelative(12.3f, 12.4f)
+            lineTo(16.28f, 17.63f)
+            lineTo(17.6f, 16.25f)
+            lineToRelative(2.52f, 2.43f)
+            lineTo(18.7f, 20.15f)
+            close()
+            moveTo(16.25f, 6.4f)
+            lineTo(18.68f, 3.88f)
+            lineTo(20.15f, 5.3f)
+            lineToRelative(-2.5f, 2.4f)
+            lineTo(16.25f, 6.4f)
+            close()
+            moveTo(3.85f, 18.7f)
+            lineTo(6.38f, 16.27f)
+            lineTo(7.75f, 17.6f)
+            lineTo(5.33f, 20.13f)
+            lineTo(3.85f, 18.7f)
+            close()
+            moveTo(12f, 12f)
+            close()
         }
     }.build()
 }
 
 val DarkModeIcon: ImageVector by lazy {
     ImageVector.Builder(name = "DarkMode", defaultWidth = 24.dp, defaultHeight = 24.dp, viewportWidth = 24f, viewportHeight = 24f).apply {
-        path(fill = SolidColor(Color.Black)) {
-            moveTo(12.3f, 2f)
-            curveTo(6.58f, 2.38f, 2f, 7.15f, 2f, 13f)
-            curveTo(2f, 19.08f, 6.92f, 24f, 13f, 24f)
-            curveTo(18.85f, 24f, 23.62f, 19.42f, 24f, 13.7f)
-            curveTo(20.35f, 15.35f, 15.65f, 13.93f, 13.7f, 10.3f)
-            curveTo(12.25f, 7.58f, 12.8f, 4.25f, 14.8f, 2.1f)
-            curveTo(14f, 2f, 13.15f, 1.95f, 12.3f, 2f)
+        path(
+            fill = SolidColor(Color.Black),
+            fillAlpha = 1f,
+            stroke = null,
+            strokeAlpha = 1f,
+            strokeLineWidth = 1f,
+            strokeLineCap = StrokeCap.Butt,
+            strokeLineJoin = StrokeJoin.Bevel,
+            strokeLineMiter = 1f,
+            pathFillType = PathFillType.Companion.NonZero
+        ) {
+            moveTo(12f, 21f)
+            quadTo(8.25f, 21f, 5.63f, 18.38f)
+            reflectiveQuadTo(3f, 12f)
+            reflectiveQuadTo(5.63f, 5.63f)
+            reflectiveQuadTo(12f, 3f)
+            quadToRelative(0.35f, 0f, 0.69f, 0.02f)
+            quadToRelative(0.34f, 0.02f, 0.66f, 0.07f)
+            quadTo(12.33f, 3.82f, 11.71f, 4.99f)
+            reflectiveQuadTo(11.1f, 7.5f)
+            quadToRelative(0f, 2.25f, 1.57f, 3.82f)
+            reflectiveQuadTo(16.5f, 12.9f)
+            quadToRelative(1.38f, 0f, 2.53f, -0.61f)
+            reflectiveQuadTo(20.9f, 10.65f)
+            quadToRelative(0.05f, 0.33f, 0.07f, 0.66f)
+            reflectiveQuadTo(21f, 12f)
+            quadToRelative(0f, 3.75f, -2.63f, 6.38f)
+            reflectiveQuadTo(12f, 21f)
+            close()
+            moveToRelative(0f, -2f)
+            quadToRelative(2.2f, 0f, 3.95f, -1.21f)
+            reflectiveQuadTo(18.5f, 14.63f)
+            quadToRelative(-0.5f, 0.13f, -1f, 0.2f)
+            reflectiveQuadToRelative(-1f, 0.08f)
+            quadToRelative(-3.07f, 0f, -5.24f, -2.16f)
+            quadTo(9.1f, 10.58f, 9.1f, 7.5f)
+            quadTo(9.1f, 7f, 9.18f, 6.5f)
+            reflectiveQuadToRelative(0.2f, -1f)
+            quadTo(7.43f, 6.3f, 6.21f, 8.05f)
+            reflectiveQuadTo(5f, 12f)
+            quadToRelative(0f, 2.9f, 2.05f, 4.95f)
+            reflectiveQuadTo(12f, 19f)
+            close()
+            moveTo(11.75f, 12.25f)
             close()
         }
     }.build()
@@ -893,31 +1056,56 @@ val DarkModeIcon: ImageVector by lazy {
 
 val SystemModeIcon: ImageVector by lazy {
     ImageVector.Builder(name = "SystemMode", defaultWidth = 24.dp, defaultHeight = 24.dp, viewportWidth = 24f, viewportHeight = 24f).apply {
-        path(fill = SolidColor(Color.Black)) {
-            moveTo(20.71f, 5.63f)
-            lineTo(18.37f, 3.29f)
-            curveTo(17.98f, 2.9f, 17.35f, 2.9f, 16.96f, 3.29f)
-            lineTo(15.12f, 5.13f)
-            lineTo(14.06f, 4.07f)
-            lineTo(12.65f, 5.48f)
-            lineTo(13.71f, 6.54f)
-            lineTo(12.05f, 8.2f)
-            lineTo(10.64f, 6.79f)
-            lineTo(9.23f, 8.2f)
-            lineTo(10.64f, 9.61f)
-            lineTo(3f, 17.25f)
-            verticalLineTo(21f)
-            horizontalLineTo(6.75f)
-            lineTo(14.39f, 13.36f)
-            lineTo(15.8f, 14.77f)
-            lineTo(17.21f, 13.36f)
-            lineTo(15.8f, 11.95f)
-            lineTo(17.46f, 10.29f)
-            lineTo(18.52f, 11.35f)
-            lineTo(19.93f, 9.94f)
-            lineTo(18.87f, 8.88f)
-            lineTo(20.71f, 7.04f)
-            curveTo(21.1f, 6.65f, 21.1f, 6.02f, 20.71f, 5.63f)
+        path(
+            fill = SolidColor(Color.Black),
+            fillAlpha = 1f,
+            stroke = null,
+            strokeAlpha = 1f,
+            strokeLineWidth = 1f,
+            strokeLineCap = StrokeCap.Butt,
+            strokeLineJoin = StrokeJoin.Bevel,
+            strokeLineMiter = 1f,
+            pathFillType = PathFillType.Companion.NonZero
+        ) {
+            moveTo(3f, 21f)
+            verticalLineTo(16.25f)
+            lineTo(11.95f, 7.3f)
+            lineTo(10.5f, 5.9f)
+            lineTo(11.95f, 4.5f)
+            lineToRelative(1.9f, 1.9f)
+            lineToRelative(3.1f, -3.1f)
+            quadTo(17.08f, 3.17f, 17.26f, 3.1f)
+            reflectiveQuadTo(17.65f, 3.02f)
+            reflectiveQuadTo(18.03f, 3.1f)
+            reflectiveQuadToRelative(0.32f, 0.2f)
+            lineTo(20.7f, 5.65f)
+            quadToRelative(0.13f, 0.15f, 0.2f, 0.32f)
+            reflectiveQuadToRelative(0.07f, 0.38f)
+            reflectiveQuadTo(20.9f, 6.74f)
+            reflectiveQuadTo(20.7f, 7.05f)
+            lineToRelative(-3.08f, 3.07f)
+            lineToRelative(1.9f, 1.95f)
+            lineTo(18.1f, 13.5f)
+            lineTo(16.7f, 12.05f)
+            lineTo(7.75f, 21f)
+            horizontalLineTo(3f)
+            close()
+            moveTo(5f, 19f)
+            horizontalLineTo(6.95f)
+            lineToRelative(8.3f, -8.35f)
+            lineToRelative(-1.9f, -1.9f)
+            lineTo(5f, 17.05f)
+            verticalLineTo(19f)
+            close()
+            moveTo(16.18f, 8.75f)
+            lineToRelative(2.4f, -2.4f)
+            lineTo(17.65f, 5.43f)
+            lineToRelative(-2.4f, 2.4f)
+            lineToRelative(0.93f, 0.93f)
+            close()
+            moveToRelative(0f, 0f)
+            lineTo(15.25f, 7.82f)
+            lineToRelative(0.93f, 0.93f)
             close()
         }
     }.build()
@@ -963,7 +1151,7 @@ fun AppearanceSection(
     val themeColors = remember {
         listOf(
             ThemeColorItem("amber", "Янтарна", Color(0xFFF9A20B)),
-            ThemeColorItem("ocean", "Океан", Color(0xFF29B6F6)),
+            ThemeColorItem("ocean", "Океан", Color(0xFF0B4F6C)),
             ThemeColorItem("purple", "Пурпурна", Color(0xFF7E57C2)),
             ThemeColorItem("forest", "Лісова", Color(0xFF388E3C))
         )
@@ -1160,12 +1348,12 @@ fun AppBottomNavigationBar(
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(bottom = 20.dp, start = 36.dp, end = 36.dp)
+            .padding(bottom = 16.dp, start = 36.dp, end = 36.dp)
             .shadow(elevation = 12.dp, shape = CircleShape)
             .clip(CircleShape)
             .background(Color.White)
             .border(width = 1.dp, color = Color(0xFFE6E2DB), shape = CircleShape)
-            .padding(horizontal = 16.dp, vertical = 10.dp)
+            .padding(horizontal = 16.dp, vertical = 6.dp)
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -1192,13 +1380,13 @@ fun AppBottomNavigationBar(
                         imageVector = item.icon,
                         contentDescription = item.title,
                         tint = if (isSelected) Color(0xFF181511) else Color(0xFF9CA3AF),
-                        modifier = Modifier.size(24.dp)
+                        modifier = Modifier.size(22.dp)
                     )
                     if (isSelected) {
                         Spacer(modifier = Modifier.height(2.dp))
                         Text(
                             text = item.title,
-                            fontSize = 11.sp,
+                            fontSize = 10.sp,
                             fontWeight = FontWeight.Bold,
                             color = Color(0xFF181511)
                         )
@@ -1428,7 +1616,12 @@ fun App() {
                         DashboardScreen(
                             tickets = tickets,
                             onNewTicketClick = { currentScreen = Screen.NewTicket },
-                            onSearchClick = { currentScreen = Screen.Search },
+                            onSearchClick = { statusFilter, techFilter ->
+                                currentScreen = Screen.Search(
+                                    initialStatusFilter = statusFilter,
+                                    initialTechFilter = techFilter
+                                )
+                            },
                             onTicketClick = { ticketId ->
                                 activeTicketId = ticketId
                                 currentScreen = Screen.TicketDetails(ticketId)
@@ -1452,6 +1645,8 @@ fun App() {
                     is Screen.Search -> {
                         SearchTicketsScreen(
                             tickets = tickets,
+                            initialStatusFilter = screen.initialStatusFilter,
+                            initialTechFilter = screen.initialTechFilter,
                             onBackClick = handleBack,
                             onTicketClick = { ticketId ->
                                 activeTicketId = ticketId
@@ -1570,7 +1765,7 @@ fun App() {
 fun DashboardScreen(
     tickets: List<RepairTicket>,
     onNewTicketClick: () -> Unit,
-    onSearchClick: () -> Unit,
+    onSearchClick: (statusFilter: String?, techFilter: String?) -> Unit,
     onTicketClick: (String) -> Unit
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
@@ -1600,14 +1795,14 @@ fun DashboardScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp)
-                    .padding(bottom = 32.dp),
+                    .padding(bottom = 20.dp),
                 horizontalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 // Yellow Card: Новий талон
                 Column(
                     modifier = Modifier
                         .weight(1f)
-                        .height(176.dp)
+                        .height(160.dp)
                         .clip(RoundedCornerShape(16.dp))
                         .background(Color(0xFFF9A20B))
                         .clickable { onNewTicketClick() }
@@ -1616,7 +1811,7 @@ fun DashboardScreen(
                 ) {
                     Box(
                         modifier = Modifier
-                            .size(48.dp)
+                            .size(44.dp)
                             .background(Color.White.copy(alpha = 0.2f), CircleShape),
                         contentAlignment = Alignment.Center
                     ) {
@@ -1624,21 +1819,21 @@ fun DashboardScreen(
                             imageVector = AddIcon,
                             contentDescription = "Створити",
                             tint = Color(0xFF181511),
-                            modifier = Modifier.size(28.dp)
+                            modifier = Modifier.size(26.dp)
                         )
                     }
 
                     Column {
                         Text(
                             text = "Новий талон",
-                            fontSize = 20.sp,
+                            fontSize = 18.sp,
                             fontWeight = FontWeight.Bold,
                             color = Color(0xFF181511),
-                            lineHeight = 24.sp
+                            lineHeight = 22.sp
                         )
                         Text(
                             text = "Створити запис",
-                            fontSize = 14.sp,
+                            fontSize = 13.sp,
                             fontWeight = FontWeight.Medium,
                             color = Color(0xFF181511).copy(alpha = 0.8f)
                         )
@@ -1649,16 +1844,16 @@ fun DashboardScreen(
                 Column(
                     modifier = Modifier
                         .weight(1f)
-                        .height(176.dp)
+                        .height(160.dp)
                         .clip(RoundedCornerShape(16.dp))
                         .background(Color(0xFF181511))
-                        .clickable { onSearchClick() }
+                        .clickable { onSearchClick(null, null) }
                         .padding(20.dp),
                     verticalArrangement = Arrangement.SpaceBetween
                 ) {
                     Box(
                         modifier = Modifier
-                            .size(48.dp)
+                            .size(44.dp)
                             .background(Color.White.copy(alpha = 0.1f), CircleShape),
                         contentAlignment = Alignment.Center
                     ) {
@@ -1666,24 +1861,206 @@ fun DashboardScreen(
                             imageVector = SearchIcon,
                             contentDescription = "Пошук",
                             tint = Color.White,
-                            modifier = Modifier.size(28.dp)
+                            modifier = Modifier.size(26.dp)
                         )
                     }
 
                     Column {
                         Text(
                             text = "Пошук",
-                            fontSize = 20.sp,
+                            fontSize = 18.sp,
                             fontWeight = FontWeight.Bold,
                             color = Color.White,
-                            lineHeight = 24.sp
+                            lineHeight = 22.sp
                         )
                         Text(
                             text = "Знайти за ID",
-                            fontSize = 14.sp,
+                            fontSize = 13.sp,
                             fontWeight = FontWeight.Medium,
                             color = Color(0xFF9CA3AF)
                         )
+                    }
+                }
+            }
+
+            // Widget 1: Status Quick Filter Buttons (4-column grid inside bordered block)
+            val pendingCount = tickets.count { it.status == "На узгодженні" }
+            val inProgressCount = tickets.count { it.status == "В роботі" }
+            val waitingPartsCount = tickets.count { it.status == "Очікує запчастин" }
+            val readyCount = tickets.count { it.status == "Готовий до видачі" }
+
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp)
+                    .padding(bottom = 24.dp)
+            ) {
+                Text(
+                    text = "Статуси талонів",
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color(0xFF181511),
+                    modifier = Modifier.padding(bottom = 10.dp)
+                )
+
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .shadow(1.dp, shape = RoundedCornerShape(16.dp))
+                        .clip(RoundedCornerShape(16.dp))
+                        .background(Color.White)
+                        .border(1.dp, Color(0xFFE6E2DB), RoundedCornerShape(16.dp))
+                        .padding(12.dp)
+                ) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        StatusQuickFilterCard(
+                            count = pendingCount,
+                            label = "Узгодження",
+                            bgColor = Color(0xFFE3F2FD),
+                            textColor = Color(0xFF1976D2),
+                            borderColor = Color(0xFFBBDEFB),
+                            onClick = { onSearchClick("На узгодженні", null) },
+                            modifier = Modifier.weight(1f)
+                        )
+                        StatusQuickFilterCard(
+                            count = inProgressCount,
+                            label = "В роботі",
+                            bgColor = Color(0xFFFFF3E0),
+                            textColor = Color(0xFFF57C00),
+                            borderColor = Color(0xFFFFE0B2),
+                            onClick = { onSearchClick("В роботі", null) },
+                            modifier = Modifier.weight(1f)
+                        )
+                        StatusQuickFilterCard(
+                            count = waitingPartsCount,
+                            label = "Запчастини",
+                            bgColor = Color(0xFFFFEBEE),
+                            textColor = Color(0xFFD32F2F),
+                            borderColor = Color(0xFFFFCDD2),
+                            onClick = { onSearchClick("Очікує запчастин", null) },
+                            modifier = Modifier.weight(1f)
+                        )
+                        StatusQuickFilterCard(
+                            count = readyCount,
+                            label = "Готовий",
+                            bgColor = Color(0xFFE8F5E9),
+                            textColor = Color(0xFF388E3C),
+                            borderColor = Color(0xFFC8E6C9),
+                            onClick = { onSearchClick("Готовий до видачі", null) },
+                            modifier = Modifier.weight(1f)
+                        )
+                    }
+                }
+            }
+
+            // Widget 2: Team Workload Section (Навантаження команди - Material You style)
+            val activeTickets = tickets.filter { it.status != "Завершено" }
+            val totalActiveTickets = activeTickets.size
+            val workerCounts = activeTickets
+                .groupBy { it.assignedWorker }
+                .mapValues { it.value.size }
+                .entries.sortedByDescending { it.value }
+
+            if (workerCounts.isNotEmpty()) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 20.dp)
+                        .padding(bottom = 28.dp)
+                ) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(bottom = 10.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = "Навантаження команди",
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color(0xFF181511)
+                        )
+                        Box(
+                            modifier = Modifier
+                                .clip(RoundedCornerShape(8.dp))
+                                .background(Color(0xFFEBF3F7))
+                                .padding(horizontal = 10.dp, vertical = 4.dp)
+                        ) {
+                            Text(
+                                text = "$totalActiveTickets активних талонів",
+                                fontSize = 12.sp,
+                                fontWeight = FontWeight.SemiBold,
+                                color = Color(0xFF0B4F6C)
+                            )
+                        }
+                    }
+
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .shadow(1.dp, shape = RoundedCornerShape(20.dp))
+                            .clip(RoundedCornerShape(20.dp))
+                            .background(Color.White)
+                            .border(1.dp, Color(0xFFE6E2DB), RoundedCornerShape(20.dp))
+                            .padding(20.dp),
+                        verticalArrangement = Arrangement.spacedBy(18.dp)
+                    ) {
+                        workerCounts.forEach { (worker, count) ->
+                            val ratio = if (totalActiveTickets > 0) count.toFloat() / totalActiveTickets else 0f
+                            val isFullOrHeavy = ratio >= 0.5f
+                            val progressColor = when {
+                                isFullOrHeavy -> Color(0xFFEF4444)
+                                ratio >= 0.25f -> Color(0xFFF59E0B)
+                                else -> Color(0xFF3B82F6)
+                            }
+
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .clickable { onSearchClick(null, worker) }
+                            ) {
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.SpaceBetween,
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Text(
+                                        text = worker,
+                                        fontSize = 15.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        color = Color(0xFF181511)
+                                    )
+                                    Text(
+                                        text = "$count / $totalActiveTickets талонів",
+                                        fontSize = 13.sp,
+                                        fontWeight = if (isFullOrHeavy) FontWeight.Bold else FontWeight.Medium,
+                                        color = if (isFullOrHeavy) Color(0xFFEF4444) else Color(0xFF64748B)
+                                    )
+                                }
+                                Spacer(modifier = Modifier.height(8.dp))
+                                Box(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .height(8.dp)
+                                        .clip(CircleShape)
+                                        .background(Color(0xFFF1F5F9))
+                                ) {
+                                    if (ratio > 0f) {
+                                        Box(
+                                            modifier = Modifier
+                                                .fillMaxHeight()
+                                                .fillMaxWidth(ratio.coerceIn(0.04f, 1f))
+                                                .clip(CircleShape)
+                                                .background(progressColor)
+                                        )
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -1707,7 +2084,7 @@ fun DashboardScreen(
                     fontSize = 14.sp,
                     fontWeight = FontWeight.SemiBold,
                     color = Color(0xFFF9A20B),
-                    modifier = Modifier.clickable { onSearchClick() }
+                    modifier = Modifier.clickable { onSearchClick(null, null) }
                 )
             }
 
@@ -2057,18 +2434,58 @@ fun NewTicketScreen(
     }
 }
 
+@Composable
+private fun StatusQuickFilterCard(
+    count: Int,
+    label: String,
+    bgColor: Color,
+    textColor: Color,
+    borderColor: Color,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier
+            .clip(RoundedCornerShape(14.dp))
+            .background(bgColor)
+            .border(1.dp, borderColor, RoundedCornerShape(14.dp))
+            .clickable(onClick = onClick)
+            .padding(vertical = 12.dp, horizontal = 4.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text(
+            text = count.toString(),
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Bold,
+            color = textColor
+        )
+        Spacer(modifier = Modifier.height(2.dp))
+        Text(
+            text = label,
+            fontSize = 10.sp,
+            fontWeight = FontWeight.Bold,
+            color = textColor.copy(alpha = 0.85f),
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
+        )
+    }
+}
+
 // ----------------------------------------------------
 // 3. SEARCH TICKETS SCREEN (Пошук Талонів)
 // ----------------------------------------------------
 @Composable
 fun SearchTicketsScreen(
     tickets: List<RepairTicket>,
+    initialStatusFilter: String? = null,
+    initialTechFilter: String? = null,
     onBackClick: () -> Unit,
     onTicketClick: (String) -> Unit
 ) {
     var searchQuery by remember { mutableStateOf("") }
-    var statusFilter by remember { mutableStateOf("Усі статуси") }
-    var techFilter by remember { mutableStateOf("Усі виконавці") }
+    var statusFilter by remember { mutableStateOf(initialStatusFilter ?: "Усі статуси") }
+    var techFilter by remember { mutableStateOf(initialTechFilter ?: "Усі виконавці") }
     var dateFilter by remember { mutableStateOf("Усі дати") }
     var showDatePickerModal by remember { mutableStateOf(false) }
     var customDateRange by remember { mutableStateOf<String?>(null) }
@@ -3452,12 +3869,6 @@ fun OrdersScreen(
                             fontWeight = FontWeight.Bold,
                             color = Color(0xFF181511),
                             lineHeight = 24.sp
-                        )
-                        Text(
-                            text = "Створити замовлення",
-                            fontSize = 14.sp,
-                            fontWeight = FontWeight.Medium,
-                            color = Color(0xFF181511).copy(alpha = 0.8f)
                         )
                     }
                 }

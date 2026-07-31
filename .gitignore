@@ -110,3 +110,15 @@ kotlin-js-store/.yarn/
 *.jks
 google-services.json
 GoogleService-Info.plist
+
+# ----------------------------
+# Backend
+# ----------------------------
+backend/
+
+
+
+# ----------------------------
+# Other
+# ----------------------------
+tech task.md
