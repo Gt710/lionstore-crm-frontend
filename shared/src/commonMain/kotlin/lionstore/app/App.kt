@@ -391,6 +391,82 @@ val PrintOutlinedIcon: ImageVector by lazy {
     }.build()
 }
 
+// User requested exact icon: copy_all (var=opsz,wght,FILL,GRAD,ROND@24,400,0,0,50)
+val CopyAllIcon: ImageVector by lazy {
+    ImageVector.Builder(name = "CopyAll", defaultWidth = 24.dp, defaultHeight = 24.dp, viewportWidth = 24f, viewportHeight = 24f).apply {
+        path(fill = SolidColor(Color.Black)) {
+            moveTo(3f, 18.5f)
+            verticalLineToRelative(-2f)
+            horizontalLineTo(5f)
+            verticalLineToRelative(2f)
+            horizontalLineTo(3f)
+            close()
+            moveTo(3f, 15f)
+            verticalLineTo(13f)
+            horizontalLineTo(5f)
+            verticalLineToRelative(2f)
+            horizontalLineTo(3f)
+            close()
+            moveTo(3f, 11.5f)
+            verticalLineToRelative(-2f)
+            horizontalLineTo(5f)
+            verticalLineToRelative(2f)
+            horizontalLineTo(3f)
+            close()
+            moveTo(6.5f, 22f)
+            verticalLineTo(20f)
+            horizontalLineToRelative(2f)
+            verticalLineToRelative(2f)
+            horizontalLineToRelative(-2f)
+            close()
+            moveTo(9f, 18f)
+            quadTo(8.18f, 18f, 7.59f, 17.41f)
+            reflectiveQuadTo(7f, 16f)
+            verticalLineTo(4f)
+            quadTo(7f, 3.17f, 7.59f, 2.59f)
+            reflectiveQuadTo(9f, 2f)
+            horizontalLineToRelative(9f)
+            quadToRelative(0.82f, 0f, 1.41f, 0.59f)
+            reflectiveQuadTo(20f, 4f)
+            verticalLineTo(16f)
+            quadToRelative(0f, 0.82f, -0.59f, 1.41f)
+            reflectiveQuadTo(18f, 18f)
+            horizontalLineTo(9f)
+            close()
+            moveTo(9f, 16f)
+            horizontalLineToRelative(9f)
+            verticalLineTo(4f)
+            horizontalLineTo(9f)
+            verticalLineTo(16f)
+            close()
+            moveToRelative(1f, 6f)
+            verticalLineTo(20f)
+            horizontalLineToRelative(2f)
+            verticalLineToRelative(2f)
+            horizontalLineTo(10f)
+            close()
+            moveTo(5f, 22f)
+            quadTo(4.18f, 22f, 3.59f, 21.41f)
+            reflectiveQuadTo(3f, 20f)
+            horizontalLineTo(5f)
+            verticalLineToRelative(2f)
+            close()
+            moveToRelative(8.5f, 0f)
+            verticalLineTo(20f)
+            horizontalLineToRelative(2f)
+            quadToRelative(0f, 0.82f, -0.59f, 1.41f)
+            reflectiveQuadTo(13.5f, 22f)
+            close()
+            moveTo(3f, 8f)
+            quadTo(3f, 7.18f, 3.59f, 6.59f)
+            reflectiveQuadTo(5f, 6f)
+            verticalLineTo(8f)
+            horizontalLineTo(3f)
+            close()
+        }
+    }.build()
+}
+
 // User requested exact icon: autorenew (var=opsz,wght,FILL,GRAD,ROND@24,400,0,0,50)
 val AutorenewIcon: ImageVector by lazy {
     ImageVector.Builder(name = "Autorenew", defaultWidth = 24.dp, defaultHeight = 24.dp, viewportWidth = 24f, viewportHeight = 24f).apply {
@@ -1694,8 +1770,8 @@ fun App() {
                 }
             }
 
-            // Pill Floating Bottom Navigation Bar (Visible on primary screens)
-            if (currentScreen is Screen.Dashboard || currentScreen is Screen.Orders || currentScreen is Screen.Settings || currentScreen is Screen.Search || currentScreen is Screen.NewTicket) {
+            // Pill Floating Bottom Navigation Bar (Visible on primary tab screens)
+            if (currentScreen is Screen.Dashboard || currentScreen is Screen.Orders || currentScreen is Screen.Settings) {
                 Box(
                     modifier = Modifier.align(Alignment.BottomCenter)
                 ) {
@@ -2173,7 +2249,7 @@ fun NewTicketScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
-                .padding(bottom = 100.dp)
+                .padding(bottom = 80.dp)
         ) {
             // Top Bar with camera notch offset (top padding = 28.dp)
             Row(
@@ -2203,7 +2279,6 @@ fun NewTicketScreen(
                         color = Color(0xFF181511)
                     )
                 }
-                Text(text = "🐾", fontSize = 20.sp)
             }
 
             Column(modifier = Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(20.dp)) {
@@ -2375,19 +2450,18 @@ fun NewTicketScreen(
             }
         }
 
-        // Sticky Create Button with library_add vector icon
+        // Floating Create Button with library_add vector icon
         Box(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .fillMaxWidth()
-                .shadow(16.dp)
-                .background(Color.White)
-                .padding(start = 16.dp, end = 16.dp, top = 12.dp, bottom = 78.dp)
+                .padding(start = 20.dp, end = 20.dp, bottom = 20.dp, top = 8.dp)
         ) {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(52.dp)
+                    .shadow(4.dp, shape = RoundedCornerShape(12.dp))
                     .clip(RoundedCornerShape(12.dp))
                     .background(Color(0xFFF9A20B))
                     .clickable {
@@ -2736,14 +2810,14 @@ fun TicketDetailsScreen(
     onChangeStatusClick: () -> Unit
 ) {
     val clipboardManager = LocalClipboardManager.current
-    var showCopyToast by remember { mutableStateOf(false) }
+    var copyToastMessage by remember { mutableStateOf<String?>(null) }
 
     Box(modifier = Modifier.fillMaxSize().background(Color(0xFFF8F7F5))) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
-                .padding(bottom = 100.dp)
+                .padding(bottom = 80.dp)
         ) {
             // Top Bar with camera notch offset (top padding = 28.dp)
             Row(
@@ -2783,21 +2857,58 @@ fun TicketDetailsScreen(
                     }
                 }
 
-                // Outlined printer icon print_outlined inside a light gray circle background (#F3F4F6)
-                Box(
-                    modifier = Modifier
-                        .size(36.dp)
-                        .clip(CircleShape)
-                        .background(Color(0xFFF3F4F6))
-                        .clickable { },
-                    contentAlignment = Alignment.Center
+                // Action Buttons: [Copy All Ticket Info] [Printer]
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Icon(
-                        imageVector = PrintOutlinedIcon,
-                        contentDescription = "Друк",
-                        tint = Color(0xFF181511),
-                        modifier = Modifier.size(20.dp)
-                    )
+                    // Copy Full Ticket Button
+                    Box(
+                        modifier = Modifier
+                            .size(36.dp)
+                            .clip(CircleShape)
+                            .background(Color(0xFFF3F4F6))
+                            .clickable {
+                                val cleanId = ticket.id.replace("#R-", "").replace("R-", "").replace("#", "")
+                                val formattedText = """
+                                    Талон #R-$cleanId
+                                    Дата: ${ticket.createdDate}
+                                    ----------------------------
+                                    Назва техніки: ${ticket.deviceModel}
+                                    Опис ремонту: ${ticket.issueDescription}
+
+                                    Клієнт: ${ticket.clientName}
+                                    ${ticket.clientPhone}
+                                """.trimIndent()
+                                clipboardManager.setText(AnnotatedString(formattedText))
+                                copyToastMessage = "Талон скопійовано"
+                            },
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            imageVector = CopyAllIcon,
+                            contentDescription = "Скопіювати талон",
+                            tint = Color(0xFF181511),
+                            modifier = Modifier.size(20.dp)
+                        )
+                    }
+
+                    // Printer Button
+                    Box(
+                        modifier = Modifier
+                            .size(36.dp)
+                            .clip(CircleShape)
+                            .background(Color(0xFFF3F4F6))
+                            .clickable { },
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            imageVector = PrintOutlinedIcon,
+                            contentDescription = "Друк",
+                            tint = Color(0xFF181511),
+                            modifier = Modifier.size(20.dp)
+                        )
+                    }
                 }
             }
 
@@ -2816,13 +2927,27 @@ fun TicketDetailsScreen(
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.Top
                     ) {
-                        Column {
-                            Text(
-                                text = ticket.deviceModel,
-                                fontSize = 22.sp,
-                                fontWeight = FontWeight.ExtraBold,
-                                color = Color(0xFF181511)
-                            )
+                        Column(
+                            modifier = Modifier.clickable {
+                                clipboardManager.setText(AnnotatedString(ticket.deviceModel))
+                                copyToastMessage = "Назву техніки скопійовано"
+                            }
+                        ) {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Text(
+                                    text = ticket.deviceModel,
+                                    fontSize = 22.sp,
+                                    fontWeight = FontWeight.ExtraBold,
+                                    color = Color(0xFF181511)
+                                )
+                                Spacer(modifier = Modifier.width(6.dp))
+                                Icon(
+                                    imageVector = CopyIcon,
+                                    contentDescription = "Скопіювати назву",
+                                    tint = Color(0xFF9CA3AF),
+                                    modifier = Modifier.size(16.dp)
+                                )
+                            }
                             Spacer(modifier = Modifier.height(2.dp))
                             Text(
                                 text = "Створено ${ticket.createdDate}",
@@ -2859,7 +2984,7 @@ fun TicketDetailsScreen(
                     }
                 }
 
-                // Client Card with COPY Phone Number Button (Black icon on Gray Circle)
+                // Client Card with COPY Phone Number Button
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -2891,7 +3016,7 @@ fun TicketDetailsScreen(
                             Text(ticket.clientPhone, fontSize = 14.sp, color = Color(0xFF6B7280))
                         }
 
-                        // COPY Phone Number Button: Black vector icon on gray circle background (#F3F4F6)
+                        // COPY Phone Number Button
                         Box(
                             modifier = Modifier
                                 .size(40.dp)
@@ -2899,7 +3024,7 @@ fun TicketDetailsScreen(
                                 .background(Color(0xFFF3F4F6))
                                 .clickable {
                                     clipboardManager.setText(AnnotatedString(ticket.clientPhone))
-                                    showCopyToast = true
+                                    copyToastMessage = "Номер телефону скопійовано"
                                 },
                             contentAlignment = Alignment.Center
                         ) {
@@ -2913,7 +3038,7 @@ fun TicketDetailsScreen(
                     }
                 }
 
-                // Issue & Tech Details Card (Without green dot next to tech name)
+                // Issue & Tech Details Card
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -3012,39 +3137,38 @@ fun TicketDetailsScreen(
             }
         }
 
-        // Copy Phone Confirmation Toast — auto-dismisses after 1 second
-        if (showCopyToast) {
-            LaunchedEffect(showCopyToast) {
-                delay(1000)
-                showCopyToast = false
+        // Copy Confirmation Toast — auto-dismisses after 1.2 seconds
+        if (copyToastMessage != null) {
+            LaunchedEffect(copyToastMessage) {
+                delay(1200)
+                copyToastMessage = null
             }
             Box(
                 modifier = Modifier
                     .align(Alignment.Center)
                     .clip(RoundedCornerShape(16.dp))
                     .background(Color(0xFF181511).copy(alpha = 0.9f))
-                    .clickable { showCopyToast = false }
+                    .clickable { copyToastMessage = null }
                     .padding(horizontal = 20.dp, vertical = 12.dp)
             ) {
-                Text("Номер телефону скопійовано", fontSize = 14.sp, color = Color.White, fontWeight = FontWeight.Medium)
+                Text(copyToastMessage!!, fontSize = 14.sp, color = Color.White, fontWeight = FontWeight.Medium)
             }
         }
 
-        // Bottom Action Bar
+        // Floating Bottom Action Bar (No solid white background card)
         Row(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .fillMaxWidth()
-                .shadow(16.dp)
-                .background(Color.White)
-                .padding(16.dp),
+                .padding(start = 20.dp, end = 20.dp, bottom = 20.dp, top = 8.dp),
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            // Edit button (White)
+            // Edit button (White floating card)
             Box(
                 modifier = Modifier
                     .weight(1f)
                     .height(48.dp)
+                    .shadow(3.dp, shape = RoundedCornerShape(12.dp))
                     .clip(RoundedCornerShape(12.dp))
                     .background(Color.White)
                     .border(1.dp, Color(0xFFE5E7EB), RoundedCornerShape(12.dp))
@@ -3054,11 +3178,12 @@ fun TicketDetailsScreen(
                 Text("Редагувати", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = Color(0xFF374151))
             }
 
-            // Change status button (Yellow) with autorenew vector icon
+            // Change status button (Yellow floating card) with autorenew vector icon
             Box(
                 modifier = Modifier
                     .weight(1.5f)
                     .height(48.dp)
+                    .shadow(4.dp, shape = RoundedCornerShape(12.dp))
                     .clip(RoundedCornerShape(12.dp))
                     .background(Color(0xFFF9A20B))
                     .clickable { onChangeStatusClick() },
